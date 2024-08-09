@@ -1,4 +1,4 @@
-<div class="containera">
+<div class="container">
   <div class="search-bar">
     <input
       type="text"
@@ -60,15 +60,11 @@
   </div>
 </div>
 <div class="kenar">
-  <div class="container">
-    <div class="col">
-      <button type="button" class="row ffav btn" (click)="searchDefinition()">
-        <img src="assets/photos/full_favorite_icon.png" alt="Favorites" />
-      </button>
+  <button type="button" class="ffav btn" (click)="searchDefinition()">
+    <img src="assets/photos/full_favorite_icon.png" alt="Favorites" />
+  </button>
 
-      <button type="button" class="row dmod btn" (click)="searchDefinition()">
-        <img src="assets/photos/dark_mode.png" alt="Dark Mode" />
-      </button>
-    </div>
-  </div>
+  <button type="button" class="dmod btn" (click)="searchDefinition()">
+    <img src="assets/photos/dark_mode.png" alt="Dark Mode" />
+  </button>
 </div>
