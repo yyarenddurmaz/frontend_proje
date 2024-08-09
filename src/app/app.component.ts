@@ -24,30 +24,32 @@ interface DictionaryEntry {
   phonetics: Phonetic[];
   origin: string;
   meanings: Meaning[];
+  tempWord: string;
 }
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  word: string = '';
+  tempWord: string = '';
   definition: DictionaryEntry | null = null;
-
+  word: string = '';
   constructor(private dictionaryService: DictionaryService) {}
 
   searchDefinition() {
+    this.word = this.tempWord;
     if (this.word) {
       this.dictionaryService.getDefinition(this.word).subscribe(
-        data => {
+        (data) => {
           if (data && data.length > 0) {
             this.definition = data[0];
           } else {
             this.definition = null;
           }
         },
-        error => {
+        (error) => {
           console.error('Error:', error);
           this.definition = null;
         }

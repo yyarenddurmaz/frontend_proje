@@ -1,9 +1,9 @@
-<div class="container">
+<div class="containera">
   <div class="search-bar">
     <input
       type="text"
       class="search-bar bg-white p-2 m-2"
-      [(ngModel)]="word"
+      [(ngModel)]="tempWord"
       placeholder="Enter the word"
     />
 
@@ -56,6 +56,19 @@
           <p *ngIf="def.example"><b>Example: </b> {{ def.example }}</p>
         </li>
       </ol>
+    </div>
+  </div>
+</div>
+<div class="kenar">
+  <div class="container">
+    <div class="col">
+      <button type="button" class="row ffav btn" (click)="searchDefinition()">
+        <img src="assets/photos/full_favorite_icon.png" alt="Favorites" />
+      </button>
+
+      <button type="button" class="row dmod btn" (click)="searchDefinition()">
+        <img src="assets/photos/dark_mode.png" alt="Dark Mode" />
+      </button>
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ body {
   color: #555;
 }
 
-.container {
+.containera {
   width: 80%;
   max-width: 600px;
   margin: 20px auto;
@@ -22,8 +22,7 @@ body {
   border-radius: 0.5rem;
   background-color: #007bff;
   padding: 10px;
-  margin: 10px;
-  margin-bottom: 20px;
+  margin: auto;
   width: 100%;
   height: 100%;
 }
@@ -94,6 +93,7 @@ ol li {
 }
 
 .word {
+  margin-top: 10px;
   font-size: 3em;
   font-weight: bold;
 }
@@ -109,3 +109,37 @@ ol li {
   color: #007bff;
   padding-left: 20px;
 }
+
+.kenar {
+  background-color: lightskyblue;
+  box-shadow: 0 0 10px lightgray;
+  width: 20%;
+  max-width: 48px;
+  height: 24%;
+  position: fixed;
+  top: 10px;
+  border-radius: 0.5rem;
+  right: 0;
+  margin: 10px auto;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.ffav,
+.dmod {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+
+}
+.ffav img,
+.dmod img {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
