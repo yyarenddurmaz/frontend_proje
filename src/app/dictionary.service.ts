@@ -14,3 +14,4 @@ export class DictionaryService {
     return this.http.get<any>(`${this.apiUrl}/${word}`);
   }
 }
+

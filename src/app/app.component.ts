@@ -1,6 +1,7 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DictionaryService } from './dictionary.service';
+import { Router } from '@angular/router';
 
 interface Phonetic {
   text: string;
@@ -32,7 +33,7 @@ interface DictionaryEntry {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   tempWord: string = '';
   definition: DictionaryEntry | null = null;
   word: string = '';
@@ -40,8 +41,13 @@ export class AppComponent {
 
   constructor(
     private dictionaryService: DictionaryService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private router: Router,
   ) {}
+
+  goToLocalStorage() {
+    this.router.navigate(['/local-storage']);
+  }
 
   searchDefinition() {
     this.word = this.tempWord;

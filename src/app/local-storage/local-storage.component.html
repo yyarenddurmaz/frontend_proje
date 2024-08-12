@@ -1,0 +1,8 @@
+<div *ngIf="storedData">
+  <h2>Stored Data:</h2>
+  <pre>{{ storedData | json }}</pre>
+</div>
+
+<div *ngIf="!storedData">
+  <p>No data found in localStorage.</p>
+</div>

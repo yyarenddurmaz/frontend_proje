@@ -1,25 +1,29 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-import {provideHttpClient, withFetch } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router'; // Ensure RouterModule is imported
+import { AppComponent } from './app.component';
+import { LocalStorageComponent } from './local-storage/local-storage.component';
+import { AppRoutingModule } from './app-routing.module';
+
+const routes: Routes = [
+  { path: '', component: AppComponent },
+  { path: 'local-storage', component: LocalStorageComponent },
+];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, LocalStorageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(routes),
   ],
-  providers: [
-    provideClientHydration(),
-    provideHttpClient(withFetch())
-  ],
-  bootstrap: [AppComponent]
+  providers: [provideClientHydration(), provideHttpClient(withFetch())],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
-
+export class AppModule {}
