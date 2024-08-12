@@ -15,23 +15,37 @@
   <div class="container1" *ngIf="definition">
     <div>
       <div class="word">{{ word }}<br /></div>
-      <span class="favorite-btn">
-        <img src="assets/photos/favorite_icon.png" alt="Favorite Icon" />
-      </span>
-      <br />
-      <hr style="color: #555; opacity: 0.5" />
+      <button class="a3 favorite-btn">
+        <img
+          [src]="
+            isDarkMode
+              ? 'assets/photos/light_mode_fav_icon.png'
+              : 'assets/photos/favorite_icon.png'
+          "
+          alt="Fav"
+        />
+      </button>
+      <hr class="cizgi" />
 
-      <div class="pronunciation">
-        {{ definition.phonetic }}
-        <span *ngIf="definition.phonetics.length" class="sound-btn">
-          <img
-            *ngIf="definition.phonetics[0].audio"
-            [src]="'assets/photos/sound_icon.png'"
-            alt="Sound Icon"
-            (click)="playAudio(definition.phonetics[0].audio)"
-          />
-        </span>
+      <div
+        *ngFor="let phonetics of definition.phonetics; let i = index"
+        class="pronunciation"
+      >
+        {{ phonetics.text }} <br />
+
+        <img
+          class="sound-btn"
+          *ngIf="phonetics.audio"
+          [src]="
+            isDarkMode
+              ? 'assets/photos/dark_mode_sound_icon.png'
+              : 'assets/photos/sound_icon.png'
+          "
+          alt="Sound Icon"
+          (click)="playAudio(phonetics.audio)"
+        />
       </div>
+      
     </div>
   </div>
 
@@ -41,7 +55,7 @@
         <p class="synant" *ngIf="def.synonyms.length">
           <b>Synonyms: </b>{{ def.synonyms.join(", ") }}
         </p>
-        <p class="synant" *ngIf="def.antonyms.length">
+        <p class="synant" *ngIf="def.antonyms?.length">
           <b>Antonyms: </b>{{ def.antonyms.join(", ") }}
         </p>
       </div>
@@ -51,7 +65,7 @@
         <p class="part-of-speech">{{ meaning.partOfSpeech }}</p>
       </div>
       <ol>
-        <li *ngFor="let def of meaning.definitions">
+        <li class="def" *ngFor="let def of meaning.definitions">
           <p><b>Definition: </b> {{ def.definition }}</p>
           <p *ngIf="def.example"><b>Example: </b> {{ def.example }}</p>
         </li>
@@ -61,10 +75,17 @@
 </div>
 <div class="kenar">
   <button type="button" class="ffav btn" (click)="searchDefinition()">
-    <img src="assets/photos/full_favorite_icon.png" alt="Favorites" />
+    <img src="assets/photos/full_favorite_icon2.png" alt="Favorites" />
   </button>
 
-  <button type="button" class="dmod btn" (click)="searchDefinition()">
-    <img src="assets/photos/dark_mode.png" alt="Dark Mode" />
+  <button (click)="toggleTheme()" class="dmod btn">
+    <img
+      [src]="
+        isDarkMode
+          ? 'assets/photos/full_dark_mode.png'
+          : 'assets/photos/dark_mode.png'
+      "
+      alt="Dark Mode"
+    />
   </button>
 </div>
