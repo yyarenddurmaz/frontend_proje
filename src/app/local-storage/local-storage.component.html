@@ -1,8 +1,27 @@
-<div *ngIf="storedData">
-  <h2>Stored Data:</h2>
-  <pre>{{ storedData | json }}</pre>
-</div>
+<div class="container">
+  <button>Clear All</button>
 
-<div *ngIf="!storedData">
-  <p>No data found in localStorage.</p>
+  <table class="table" *ngIf="storedData && storedData.length > 0">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Word</th>
+        <th scope="col">Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let getItem of storedData; let i = index" class="data-item">
+        <th scope="row">{{ i + 1 }}</th>>
+        <td>{{ getItem.word }}</td>
+        <td>{{ getItem.meaning }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <div *ngIf="storedData && storedData.length === 0">
+    <p>No data found in localStorage.</p>
+  </div>
+  
+  
+  
 </div>

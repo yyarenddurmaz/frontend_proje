@@ -1,7 +1,7 @@
 import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DictionaryService } from '../dictionary.service';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 interface Phonetic {
   text: string;
@@ -23,49 +23,65 @@ interface Meaning {
 interface DictionaryEntry {
   word: string;
   phonetics: Phonetic[];
-  origin: string;
+  origin?: string; // Origin optional hale getirildi, çünkü her kelimede olmayabilir.
   meanings: Meaning[];
 }
 
 @Component({
-  selector: 'app-root',  // Adjusted selector for home component
-  templateUrl: './home.component.html',  // Adjusted paths for home component
-  styleUrls: ['./home.component.css']
+  selector: 'app-home', // Selector düzenlendi.
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   tempWord: string = '';
   definition: DictionaryEntry | null = null;
   word: string = '';
   isDarkMode: boolean = false;
-
+  favoriteWords: string[] = [];
+  noDefinitionMessage: string | null = null;
 
   constructor(
     private dictionaryService: DictionaryService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router,
+    private router: Router
   ) {
-    
+    if (isPlatformBrowser(this.platformId)) {
+      const storedFavorites = localStorage.getItem('favoriteWords');
+      if (storedFavorites) {
+        this.favoriteWords = JSON.parse(storedFavorites);
+      }
+    }
+  }
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.classList.add('light-mode');
+      document.body.classList.add('home-true');
+    }
   }
 
   goToLocalStorage() {
     this.router.navigate(['/local-storage']).then(
-      success => console.log('Navigation successful: ', success),
-      error => console.error('Navigation error: ', error)
+      (success) => console.log('Navigation successful:', success),
+      (error) => console.error('Navigation error:', error)
     );
   }
 
   searchDefinition() {
     this.word = this.tempWord;
+    this.noDefinitionMessage = null; // Mesajı sıfırla
+
     if (this.word) {
       this.dictionaryService.getDefinition(this.word).subscribe(
         (data) => {
           this.definition = data?.[0] || null;
           if (!this.definition) {
-            console.warn('No valid definition found in the data.');
+            this.noDefinitionMessage =
+              'No valid definition found for the word.';
           }
         },
         (error) => {
           console.error('Error:', error);
+          this.noDefinitionMessage = 'No definitions.';
           this.definition = null;
         }
       );
@@ -85,12 +101,19 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.add('light-mode');
+  toggleFavorite() {
+    if (this.isFavorite(this.word)) {
+      this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
+    } else {
+      this.favoriteWords.push(this.word);
     }
+
     if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.add('home-true');
+      localStorage.setItem('favoriteWords', JSON.stringify(this.favoriteWords));
     }
+  }
+
+  isFavorite(word: string): boolean {
+    return this.favoriteWords.includes(word);
   }
 }
