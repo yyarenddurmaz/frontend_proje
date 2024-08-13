@@ -175,7 +175,8 @@ body.dark-mode .synant b {
 }
 
 .ffav,
-.dmod {
+.dmod,
+.home {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -185,7 +186,8 @@ body.dark-mode .synant b {
   margin-left: 5px;
 }
 .ffav img,
-.dmod img {
+.dmod img,
+.home img {
   height: 40px;
   width: 40px;
   display: flex;

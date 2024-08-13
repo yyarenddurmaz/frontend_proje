@@ -1,32 +1,6 @@
 import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { DictionaryService } from './dictionary.service';
-import { Router } from '@angular/router';
-
-interface Phonetic {
-  text: string;
-  audio?: string;
-}
-
-interface Definition {
-  definition: string;
-  example?: string;
-  synonyms: string[];
-  antonyms: string[];
-}
-
-interface Meaning {
-  partOfSpeech: string;
-  definitions: Definition[];
-}
-
-interface DictionaryEntry {
-  word: string;
-  phonetics: Phonetic[];
-  origin: string;
-  meanings: Meaning[];
-  tempWord: string;
-}
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -34,17 +8,32 @@ interface DictionaryEntry {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  tempWord: string = '';
-  definition: DictionaryEntry | null = null;
-  word: string = '';
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   isDarkMode: boolean = false;
+  isHomeMode:boolean=false;
+  isFavMode:boolean=false;
 
   constructor(
-    private dictionaryService: DictionaryService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router
-  ) {}
-  
+  ) {this.router.events.subscribe((event) => {
+    if (event instanceof NavigationEnd) {
+      this.isHomeMode = this.router.url === '/';
+    }
+  });
+  this.router.events.subscribe((event) => {
+    if (event instanceof NavigationEnd) {
+      this.isFavMode = this.router.url === '/local-storage';
+    }
+  });}
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.classList.add('light-mode');
+    }
+  }
+
   goToLocalStorage() {
     this.router.navigate(['/local-storage']).then(
       success => console.log('Navigation successful: ', success),
@@ -52,55 +41,24 @@ export class AppComponent implements OnInit {
     );
   }
 
-  searchDefinition() {
-    this.word = this.tempWord;
-    if (this.word) {
-      this.dictionaryService.getDefinition(this.word).subscribe(
-        (data) => {
-          this.definition = null;
-
-          if (data && data.length > 0) {
-            for (let i = 0; i < data.length; i++) {
-              if (data[i]) {
-                this.definition = data[i];
-                break;
-              }
-            }
-          }
-
-          if (!this.definition) {
-            console.warn('No valid definition found in the data.');
-          }
-        },
-        (error) => {
-          console.error('Error:', error);
-          this.definition = null;
-        }
-      );
-    }
-  }
-
-  playAudio(audioUrl: string) {
-    let audio = new Audio(audioUrl);
-    audio.play();
-  }
-
   toggleTheme() {
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = !this.isDarkMode;
-      if (this.isDarkMode) {
-        document.body.classList.add('dark-mode');
-        document.body.classList.remove('light-mode');
-      } else {
-        document.body.classList.add('light-mode');
-        document.body.classList.remove('dark-mode');
-      }
+      document.body.classList.toggle('dark-mode', this.isDarkMode);
+      document.body.classList.toggle('light-mode', !this.isDarkMode);
+    }
+  }
+  homeTheme(){
+    if (!this.isHomeMode) {
+      this.router.navigate(['/']);
+    }
+  }
+  favMode(){
+    if (!this.isFavMode) {
+      this.router.navigate(['/local-storage']);
     }
   }
 
-  ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.add('light-mode');
-    }
-  }
+
+  
 }

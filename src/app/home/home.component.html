@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="search-bar">
+    <input
+      type="text"
+      class="search-bar bg-white p-2 m-2"
+      [(ngModel)]="tempWord"
+      placeholder="Enter the word"
+    />
+
+    <button type="button" class="a1 btn bg-white" (click)="searchDefinition()">
+      <img src="assets/photos/search_icon.png" alt="Search Icon" />
+    </button>
+  </div>
+
+  <div class="container1" *ngIf="definition">
+    <div>
+      <div class="word">{{ word }}<br /></div>
+      <button class="a3 favorite-btn">
+        <img
+          [src]="
+            isDarkMode
+              ? 'assets/photos/light_mode_fav_icon.png'
+              : 'assets/photos/favorite_icon.png'
+          "
+          alt="Fav"
+        />
+      </button>
+      <hr class="cizgi" />
+
+      <div
+        *ngFor="let phonetics of definition.phonetics; let i = index"
+        class="pronunciation"
+      >
+        {{ phonetics.text }} <br />
+
+        <img
+          class="sound-btn"
+          *ngIf="phonetics.audio"
+          [src]="
+            isDarkMode
+              ? 'assets/photos/dark_mode_sound_icon.png'
+              : 'assets/photos/sound_icon.png'
+          "
+          alt="Sound Icon"
+          (click)="playAudio(phonetics.audio)"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="definition">
+    <div *ngFor="let meaning of definition.meanings">
+      <div *ngFor="let def of meaning.definitions">
+        <p class="synant" *ngIf="def.synonyms.length">
+          <b>Synonyms: </b>{{ def.synonyms.join(", ") }}
+        </p>
+        <p class="synant" *ngIf="def.antonyms?.length">
+          <b>Antonyms: </b>{{ def.antonyms.join(", ") }}
+        </p>
+      </div>
+    </div>
+    <div *ngFor="let meaning of definition.meanings">
+      <div class="definition">
+        <p class="part-of-speech">{{ meaning.partOfSpeech }}</p>
+      </div>
+      <ol>
+        <li class="def" *ngFor="let def of meaning.definitions">
+          <p><b>Definition: </b> {{ def.definition }}</p>
+          <p *ngIf="def.example"><b>Example: </b> {{ def.example }}</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+
+
