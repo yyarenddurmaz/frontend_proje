@@ -42,11 +42,14 @@ export class AppComponent implements OnInit {
   constructor(
     private dictionaryService: DictionaryService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router,
+    private router: Router
   ) {}
-
+  
   goToLocalStorage() {
-    this.router.navigate(['/local-storage']);
+    this.router.navigate(['/local-storage']).then(
+      success => console.log('Navigation successful: ', success),
+      error => console.error('Navigation error: ', error)
+    );
   }
 
   searchDefinition() {
