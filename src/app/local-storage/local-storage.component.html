@@ -1,27 +1,28 @@
 <div class="container">
-  <button>Clear All</button>
+  <p class="word">Favorites</p>
+  <button type="button" class="btn temizlebtn" (click)="clearAll()">
+    Clear All
+  </button>
+  <br /><br />
 
-  <table class="table" *ngIf="storedData && storedData.length > 0">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Word</th>
-        <th scope="col">Meaning</th>
-      </tr>
-    </thead>
+  <table
+    class="abc table table-sm table-bordered rounded"
+    *ngIf="storedData && storedData.length > 0"
+  >
     <tbody>
-      <tr *ngFor="let getItem of storedData; let i = index" class="data-item">
-        <th scope="row">{{ i + 1 }}</th>>
-        <td>{{ getItem.word }}</td>
-        <td>{{ getItem.meaning }}</td>
+      <tr *ngFor="let item of storedData; let i = index" class="data-item">
+        <th class="no" scope="row">{{ i + 1 }}</th>
+        <td>{{ item.word }}</td>
+        <td>
+          <button class="del btn" (click)="deleteWord(item.word)">
+            <img [src]="'assets/photos/delete_icon.png'" alt="Delete" />
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-  
-  <div *ngIf="storedData && storedData.length === 0">
-    <p>No data found in localStorage.</p>
+
+  <div class="nodef" *ngIf="storedData && storedData.length === 0">
+    <p>No data found in Local Storage.</p>
   </div>
-  
-  
-  
 </div>

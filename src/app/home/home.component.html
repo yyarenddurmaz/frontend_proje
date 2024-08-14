@@ -17,12 +17,20 @@
       <div class="word">{{ word }}<br /></div>
       <button class="a3 favorite-btn" (click)="toggleFavorite()">
         <img
-          [src]="isFavorite(word)
-            ? 'assets/photos/full_favorite_icon.png'
-            : 'assets/photos/favorite_icon.png'"
+          [src]="
+            isFavorite(word)
+              ? 'assets/photos/full_favorite_icon.png' 
+              : isDarkMode
+                ? 'assets/photos/light_favorite_icon.png'
+                : 'assets/photos/favorite_icon.png'
+          "
           alt="Fav"
         />
       </button>
+      <div *ngIf="showNotification" class="alert alert-primary" role="alert" [innerHTML]="notificationMessage">
+        {{ notificationMessage }}
+      </div>
+      
       <hr class="cizgi" />
 
       <div

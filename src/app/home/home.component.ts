@@ -23,7 +23,7 @@ interface Meaning {
 interface DictionaryEntry {
   word: string;
   phonetics: Phonetic[];
-  origin?: string; // Origin optional hale getirildi, çünkü her kelimede olmayabilir.
+  origin?: string;
   meanings: Meaning[];
 }
 
@@ -39,6 +39,8 @@ export class HomeComponent implements OnInit {
   isDarkMode: boolean = false;
   favoriteWords: string[] = [];
   noDefinitionMessage: string | null = null;
+  notificationMessage: string = '';
+  showNotification: boolean = false;
 
   constructor(
     private dictionaryService: DictionaryService,
@@ -67,8 +69,8 @@ export class HomeComponent implements OnInit {
   }
 
   searchDefinition() {
-    this.word = this.tempWord;
-    this.noDefinitionMessage = null; // Mesajı sıfırla
+    this.word = this.tempWord.toLowerCase();
+    this.noDefinitionMessage = null;
 
     if (this.word) {
       this.dictionaryService.getDefinition(this.word).subscribe(
@@ -101,19 +103,34 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  toggleFavorite() {
+  toggleFavorite(): void {
     if (this.isFavorite(this.word)) {
-      this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
+      const confirmed = confirm(`Are you sure you want to remove "${this.word}" from your favorites?`);
+      
+      if (confirmed) {
+        this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
+        localStorage.removeItem(this.word);
+        this.notificationMessage = `<b>${this.word}</b> removed from favorites.`;
+      } else {
+        return;
+      }
     } else {
+      // Favorilere ekle
       this.favoriteWords.push(this.word);
+      localStorage.setItem(this.word, JSON.stringify(this.definition));
+      this.notificationMessage = `<b>${this.word}</b> added to favorites.`;
     }
-
+  
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('favoriteWords', JSON.stringify(this.favoriteWords));
     }
+  
+    this.showNotification = true;
+    setTimeout(() => (this.showNotification = false), 4000);
   }
-
+  
   isFavorite(word: string): boolean {
     return this.favoriteWords.includes(word);
   }
+  
 }
