@@ -17,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, LocalStorageComponent, HomeComponent],
+  declarations: [AppComponent, LocalStorageComponent, HomeComponent,],
   imports: [
     BrowserModule,
     AppRoutingModule,

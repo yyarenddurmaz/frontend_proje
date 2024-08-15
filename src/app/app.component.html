@@ -1,34 +1,34 @@
 <router-outlet></router-outlet>
 <div class="kenar">
-    <button (click)="homeTheme()" class="home btn">
-      <img
-        [src]="
-          isHomeMode
-            ? 'assets/photos/full_home_icon.png'
-            : 'assets/photos/home_icon.png'
-        "
-        alt="Home"
-      />
-    </button>
-    <button (click)="favMode()" (click)="goToLocalStorage()"class="ffav btn">
-      <img
-        [src]="
-          isFavMode
-            ? 'assets/photos/full_ffav_icon.png'
-            : 'assets/photos/ffav_icon.png'
-        "
-        alt="Favorites"
-      />
-    </button>
-  
-    <button (click)="toggleTheme()" class="dmod btn">
-      <img
-        [src]="
-          isDarkMode
-            ? 'assets/photos/full_dark_mode.png'
-            : 'assets/photos/dark_mode.png'
-        "
-        alt="Dark Mode"
-      />
-    </button>
-  </div>
+  <button (click)="homeTheme()" class="home btn">
+    <img
+      [src]="
+        isHomeMode
+          ? 'assets/photos/full_home_icon.png'
+          : 'assets/photos/home_icon.png'
+      "
+      alt="Home"
+    />
+  </button>
+  <button (click)="favMode()" (click)="goToLocalStorage()" class="ffav btn">
+    <img
+      [src]="
+        isFavMode
+          ? 'assets/photos/full_ffav_icon.png'
+          : 'assets/photos/ffav_icon.png'
+      "
+      alt="Favorites"
+    />
+  </button>
+
+  <button (click)="toggleTheme()" class="dmod btn">
+    <img
+      [src]="
+        isDarkMode
+          ? 'assets/photos/full_dark_mode.png'
+          : 'assets/photos/dark_mode.png'
+      "
+      alt="Dark Mode"
+    />
+  </button>
+</div>

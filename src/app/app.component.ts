@@ -12,22 +12,24 @@ export class AppComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
   isDarkMode: boolean = false;
-  isHomeMode:boolean=false;
-  isFavMode:boolean=false;
+  isHomeMode: boolean = false;
+  isFavMode: boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router
-  ) {this.router.events.subscribe((event) => {
-    if (event instanceof NavigationEnd) {
-      this.isHomeMode = this.router.url === '/';
-    }
-  });
-  this.router.events.subscribe((event) => {
-    if (event instanceof NavigationEnd) {
-      this.isFavMode = this.router.url === '/local-storage';
-    }
-  });}
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isHomeMode = this.router.url === '/';
+      }
+    });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isFavMode = this.router.url === '/local-storage';
+      }
+    });
+  }
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       document.body.classList.add('light-mode');
@@ -36,8 +38,8 @@ export class AppComponent implements OnInit {
 
   goToLocalStorage() {
     this.router.navigate(['/local-storage']).then(
-      success => console.log('Navigation successful: ', success),
-      error => console.error('Navigation error: ', error)
+      (success) => console.log('Navigation successful: ', success),
+      (error) => console.error('Navigation error: ', error)
     );
   }
 
@@ -48,17 +50,14 @@ export class AppComponent implements OnInit {
       document.body.classList.toggle('light-mode', !this.isDarkMode);
     }
   }
-  homeTheme(){
+  homeTheme() {
     if (!this.isHomeMode) {
       this.router.navigate(['/']);
     }
   }
-  favMode(){
+  favMode() {
     if (!this.isFavMode) {
       this.router.navigate(['/local-storage']);
     }
   }
-
-
-  
 }
