@@ -3,10 +3,14 @@
   <button type="button" class="btn temizlebtn" (click)="clearAll()">
     Clear All
   </button>
+  <div *ngIf="showNotification" class="alert alert-danger" role="alert" [innerHTML]="notificationMessage">
+    {{ notificationMessage }}
+  </div>
+
   <br /><br />
 
   <table
-    class="abc table table-ml table-bordered rounded"
+    class="abc table table-ml table-bordered"
     *ngIf="storedData && storedData.length > 0"
   >
     <tbody>

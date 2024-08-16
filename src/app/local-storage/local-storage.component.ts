@@ -9,6 +9,9 @@ import { isPlatformBrowser } from '@angular/common';
 export class LocalStorageComponent implements OnInit {
   storedData: { word: string; meaning: any }[] = [];
   isDarkMode: boolean = false;
+  notificationMessage: string = '';
+  showNotification: boolean = false;
+  notificationType: string | undefined;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -55,8 +58,18 @@ export class LocalStorageComponent implements OnInit {
 
   clearAll(): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.clear();
-      this.storedData = [];
+      const confirmed = confirm(`Are you sure you want to remove all words from your favorites?`);
+    
+      if (confirmed) {
+        localStorage.clear();
+        this.storedData = [];
+        this.notificationMessage = `<b>All words</b> removed from favorites.`;
+        this.showNotification = true;
+      } else {
+        return;
+      }
     }
+    this.showNotification = true;
+    setTimeout(() => (this.showNotification = false), 4000); 
   }
 }

@@ -1,4 +1,5 @@
 <router-outlet></router-outlet>
+
 <div class="kenar">
   <button (click)="homeTheme()" class="home btn">
     <img
@@ -29,6 +30,17 @@
           : 'assets/photos/dark_mode.png'
       "
       alt="Dark Mode"
+    />
+  </button>
+
+  <button (click)="goToForms()" class="form btn">
+    <img
+      [src]="
+        isDocMode
+          ? 'assets/photos/full_doc_icon.png'
+          : 'assets/photos/doc_icon.png'
+      "
+      alt="Forms"
     />
   </button>
 </div>

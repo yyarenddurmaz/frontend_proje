@@ -10,22 +10,31 @@ import { AppComponent } from './app.component';
 import { LocalStorageComponent } from './local-storage/local-storage.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'local-storage', component: LocalStorageComponent },
+  { path: 'forms', component: ProfileEditorComponent },
 ];
 
 @NgModule({
-  declarations: [AppComponent, LocalStorageComponent, HomeComponent,],
+  declarations: [
+    AppComponent,
+    LocalStorageComponent,
+    HomeComponent,
+    ProfileEditorComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     RouterModule.forRoot(routes),
+    ReactiveFormsModule,
   ],
   providers: [provideClientHydration(), provideHttpClient(withFetch())],
   bootstrap: [AppComponent],
   exports: [RouterModule],
 })
-export class AppModule { }
+export class AppModule {}

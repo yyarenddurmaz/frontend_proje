@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
   isDarkMode: boolean = false;
   isHomeMode: boolean = false;
   isFavMode: boolean = false;
+  isDocMode:boolean=false;
+
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -27,6 +29,11 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isFavMode = this.router.url === '/local-storage';
+      }
+    });
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isDocMode = this.router.url === '/forms';
       }
     });
   }
@@ -58,6 +65,11 @@ export class AppComponent implements OnInit {
   favMode() {
     if (!this.isFavMode) {
       this.router.navigate(['/local-storage']);
+    }
+  }
+  goToForms(){
+    if (!this.isDocMode) {
+      this.router.navigate(['forms']);
     }
   }
 }

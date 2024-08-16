@@ -27,9 +27,18 @@
           alt="Fav"
         />
       </button>
-      <div *ngIf="showNotification" class="alert alert-primary" role="alert" [innerHTML]="notificationMessage">
-        {{ notificationMessage }}
-      </div>
+      <div
+      *ngIf="showNotification"
+      class="alert"
+      role="alert"
+      [ngClass]="{
+        'alert-primary': notificationType === 'added',
+        'alert-danger': notificationType === 'removed'
+      }"
+      [innerHTML]="notificationMessage"
+    >
+    </div>
+    
       
       <hr class="cizgi" />
 

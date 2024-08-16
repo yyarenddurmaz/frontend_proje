@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   noDefinitionMessage: string | null = null;
   notificationMessage: string = '';
   showNotification: boolean = false;
+  notificationType: string | undefined;
 
   constructor(
     private dictionaryService: DictionaryService,
@@ -106,20 +107,25 @@ export class HomeComponent implements OnInit {
   toggleFavorite(): void {
     if (this.isFavorite(this.word)) {
       const confirmed = confirm(`Are you sure you want to remove "${this.word}" from your favorites?`);
-      
+    
       if (confirmed) {
         this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
         localStorage.removeItem(this.word);
         this.notificationMessage = `<b>${this.word}</b> removed from favorites.`;
+        this.notificationType = 'removed'; // Set the notification type for danger alert
+        this.showNotification = true; // Show the notification
       } else {
         return;
       }
     } else {
-      // Favorilere ekle
+      // Add to favorites
       this.favoriteWords.push(this.word);
       localStorage.setItem(this.word, JSON.stringify(this.definition));
       this.notificationMessage = `<b>${this.word}</b> added to favorites.`;
+      this.notificationType = 'added'; // Set the notification type for primary alert
+      this.showNotification = true; // Show the notification
     }
+    
   
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('favoriteWords', JSON.stringify(this.favoriteWords));

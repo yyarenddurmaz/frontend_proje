@@ -191,7 +191,8 @@ body.dark-mode .synant b {
 
 .ffav,
 .dmod,
-.home {
+.home,
+.form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -203,7 +204,8 @@ body.dark-mode .synant b {
 
 .ffav img,
 .dmod img,
-.home img {
+.home img,
+.form img {
   height: 40px;
   width: 40px;
   display: flex;
@@ -257,7 +259,8 @@ body.dark-mode .part-of-speech {
 
   .ffav,
   .dmod,
-  .home {
+  .home,
+  .form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -269,7 +272,8 @@ body.dark-mode .part-of-speech {
 
   .ffav img,
   .dmod img,
-  .home img {
+  .home img,
+  .form img {
     height: 30px;
     width: 30px;
     display: flex;
@@ -301,7 +305,8 @@ body.dark-mode .part-of-speech {
 
   .ffav,
   .dmod,
-  .home {
+  .home,
+  .form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -313,7 +318,8 @@ body.dark-mode .part-of-speech {
 
   .ffav img,
   .dmod img,
-  .home img {
+  .home img,
+  .form img {
     height: 17px;
     width: 17px;
     display: flex;
@@ -394,4 +400,8 @@ body.dark-mode .temizlebtn {
 .alert {
   margin-top: 5%;
   border-radius: 0.5rem;
+}
+div .alert{
+  align-items: center;
+  text-align: center;
 }
