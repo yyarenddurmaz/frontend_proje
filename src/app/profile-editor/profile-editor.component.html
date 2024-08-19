@@ -1,34 +1,76 @@
 <div class="container">
-  <div class="container1 bg-info text-white">
+  <button
+    type="button"
+    class="cleardata btn btn-outline-danger"
+    (click)="clearData()"
+  >
+    Clear Data
+  </button>
+  <div class="container1 bg-info text-white m-3">
     <h2><b>User Profile</b></h2>
-    <p>First Name: {{ userData.firstName }}</p>
-    <p>Last Name: {{ userData.lastName }}</p>
-    <p>City: {{ userData.city }}</p>
-    <p>District: {{ userData.district }}</p>
+    <p>First Name: {{ tempUserData.firstName }}</p>
+    <p>Last Name: {{ tempUserData.lastName }}</p>
+    <p>City: {{ tempUserData.city }}</p>
+    <p>District: {{ tempUserData.district }}</p>
 
-    <div class="nodef" *ngIf="!userData || (userData && !userData.firstName && !userData.lastName && !userData.city && !userData.district)">
+    <div
+      class="nodef"
+      *ngIf="
+        !userData ||
+        (userData &&
+          !userData.firstName &&
+          !userData.lastName &&
+          !userData.city &&
+          !userData.district)
+      "
+    >
       <p>No data found in Local Storage.</p>
     </div>
-    
   </div>
 
-  <div class="container1 bg-success text-white">
+  <div class="container1 bg-success text-white m-3" [formGroup]="profileForm">
     <h2><b>Save & Update Profile</b></h2>
 
-    <p for="firstName">First Name:</p>
-    <input id="firstName" type="text" [(ngModel)]="userData.firstName" />
-    <br /><br />
-    <p for="lastName">Last Name:</p>
-    <input id="lastName" type="text" [(ngModel)]="userData.lastName" />
+    <label for="firstName">First Name:</label>
+    <input
+      id="firstName"
+      placeholder="Enter the first name"
+      formControlName="firstName"
+    />
     <br /><br />
 
-    <p for="city">City:</p>
-    <input id="city" type="text" [(ngModel)]="userData.city" />
+    <label for="lastName">Last Name:</label>
+    <input
+      id="lastName"
+      type="text"
+      placeholder="Enter the last name"
+      formControlName="lastName"
+    />
     <br /><br />
-    <p for="district">District:</p>
-    <input id="district" type="text" [(ngModel)]="userData.district" />
-    <br /><br />
-    <button type="button" (click)="updateProfile(userData)">Save & Update Profile</button>
-</div>
 
+    <label for="city">City:</label>
+    <select formControlName="city" (change)="onCityChange()">
+      <option *ngFor="let city of cities" [value]="city.id">
+        {{ city.name }}
+      </option>
+    </select>
+    <br /><br />
+    <label for="district">District:</label>
+    <select formControlName="district">
+      <option *ngFor="let district of districts" [value]="district.id">
+        {{ district.name }}
+      </option>
+    </select>
+
+    <br /><br />
+
+    <button
+      class="btn btn-outline-warning btn-ml m-3"
+      [disabled]="profileForm.invalid"
+      type="button"
+      (click)="updateProfile(userData)"
+    >
+      Save & Update Profile
+    </button>
+  </div>
 </div>

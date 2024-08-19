@@ -28,7 +28,7 @@ interface DictionaryEntry {
 }
 
 @Component({
-  selector: 'app-home', // Selector düzenlendi.
+  selector: 'app-home', 
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -112,18 +112,17 @@ export class HomeComponent implements OnInit {
         this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
         localStorage.removeItem(this.word);
         this.notificationMessage = `<b>${this.word}</b> removed from favorites.`;
-        this.notificationType = 'removed'; // Set the notification type for danger alert
-        this.showNotification = true; // Show the notification
+        this.notificationType = 'removed';
+        this.showNotification = true;
       } else {
         return;
       }
     } else {
-      // Add to favorites
       this.favoriteWords.push(this.word);
       localStorage.setItem(this.word, JSON.stringify(this.definition));
       this.notificationMessage = `<b>${this.word}</b> added to favorites.`;
-      this.notificationType = 'added'; // Set the notification type for primary alert
-      this.showNotification = true; // Show the notification
+      this.notificationType = 'added';
+      this.showNotification = true;
     }
     
   
