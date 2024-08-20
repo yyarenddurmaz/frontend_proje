@@ -17,7 +17,7 @@ export class ProfileEditorComponent implements OnInit {
   profileForm: FormGroup;
   userData = { firstName: '', lastName: '', city: '', district: '' };
   tempUserData = { firstName: '', lastName: '', city: '', district: '' };
-  isBrowser: boolean;
+  isBrowser: boolean = true;
   notificationMessage: string = '';
   showNotification: boolean = false;
   notificationType: string | undefined;
@@ -25,7 +25,8 @@ export class ProfileEditorComponent implements OnInit {
   districts: any[] = [];
   allDistricts: any[] = [];
   selectedCityId: string = '';
-  FormGroup: any;
+  notificationMessage2: string = '';
+  showNotification2: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -70,10 +71,25 @@ export class ProfileEditorComponent implements OnInit {
   }
 
   onSubmit() {
-    this.userData = this.profileForm.value;
-    console.warn(this.userData);
-    this.saveProfile(this.userData);
+    if (this.profileForm.valid) {
+      const cityId = this.profileForm.controls['city'].value;
+      const districtId = this.profileForm.controls['district'].value;
+
+      const cityName = this.cities.find(city => city.id == cityId)?.name || '';
+      const districtName = this.districts.find(district => district.id == districtId)?.name || '';
+
+      this.userData = {
+        ...this.profileForm.value,
+        city: cityName,
+        district: districtName
+      };
+
+      this.saveProfile(this.userData);
+    } else {
+      console.warn("Form is not valid.");
+    }
   }
+
 
   updateProfile(userData: {
     firstName: string;
@@ -82,7 +98,7 @@ export class ProfileEditorComponent implements OnInit {
     district: string;
   }) {
     this.tempUserData = { ...userData };
-    this.profileForm.patchValue({
+    this.profileForm.setValue({
       firstName: userData.firstName,
       lastName: userData.lastName,
       city: userData.city,
@@ -92,6 +108,10 @@ export class ProfileEditorComponent implements OnInit {
     if (this.isBrowser) {
       this.saveProfile(userData);
     }
+    this.notificationMessage2 = `User information has been saved successfully`;
+    this.showNotification2 = true;
+
+    setTimeout(() => (this.showNotification2 = false), 4000);
   }
 
   saveProfile(userData: {
@@ -100,22 +120,41 @@ export class ProfileEditorComponent implements OnInit {
     city: string;
     district: string;
   }) {
-    if (this.isBrowser) {
+    if (isPlatformBrowser(this.platformId)) {
+      console.log('Saving profile...');
       localStorage.setItem('profileData', JSON.stringify(userData));
     }
   }
 
   loadProfile() {
-    if (this.isBrowser) {
+    if (isPlatformBrowser(this.platformId)) {
       const savedData = localStorage.getItem('profileData');
       if (savedData) {
-        this.userData = JSON.parse(savedData);
-        this.updateProfile(this.userData);
+        const storedData = JSON.parse(savedData);
+
+        this.locationService.getCities().subscribe((cities: any) => {
+          this.cities = cities.data;
+          const city = this.cities.find(city => city.name === storedData.city);
+          if (city) {
+            this.profileForm.controls['city'].setValue(city.id);
+            this.selectedCityId = city.id;
+            this.onCityChange();
+
+            this.locationService.getDistricts().subscribe((districts: any) => {
+              this.allDistricts = districts.data;
+              const district = this.allDistricts.find(district => district.name === storedData.district);
+              if (district) {
+                this.profileForm.controls['district'].setValue(district.id);
+              }
+            });
+          }
+        });
       } else {
         console.warn('No data found in Local Storage.');
       }
     }
   }
+
   clearData(): void {
     if (this.isBrowser) {
       const confirmed = confirm(
@@ -130,9 +169,9 @@ export class ProfileEditorComponent implements OnInit {
           city: '',
           district: '',
         };
-        this.profileForm.reset();
         this.notificationMessage = `User information has been deleted.`;
         this.showNotification = true;
+        this.profileForm.reset();
       }
     }
     this.showNotification = true;
@@ -141,10 +180,6 @@ export class ProfileEditorComponent implements OnInit {
   loadCities() {
     this.locationService.getCities().subscribe((cities: any) => {
       this.cities = cities.data;
-
-      if (this.selectedCityId) {
-        // this.onCityChange(this.selectedCityId);
-      }
     });
   }
 
@@ -159,8 +194,7 @@ export class ProfileEditorComponent implements OnInit {
   }
 
   onCityChange(): void {
-    this.selectedCityId = this.userData.city;
-    debugger;
+    this.selectedCityId = this.profileForm.controls['city'].value;
     this.districts = this.allDistricts.filter(
       (x) => x.provinceId == this.selectedCityId
     );

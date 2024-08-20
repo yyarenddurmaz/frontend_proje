@@ -1,18 +1,30 @@
 <div class="container">
   <button
     type="button"
-    class="cleardata btn btn-outline-danger"
+    class="cleardata btn btn-danger"
     (click)="clearData()"
   >
     Clear Data
   </button>
-  <div class="container1 bg-info text-white m-3">
+  <div
+    *ngIf="showNotification"
+    class="alert alert-danger"
+    role="alert"
+    [innerHTML]="notificationMessage"
+  >
+    {{ notificationMessage }}
+  </div>
+  <div class="container1 container">
     <h2><b>User Profile</b></h2>
-    <p>First Name: {{ tempUserData.firstName }}</p>
-    <p>Last Name: {{ tempUserData.lastName }}</p>
-    <p>City: {{ tempUserData.city }}</p>
-    <p>District: {{ tempUserData.district }}</p>
-
+    <hr class="cizgi" />
+    <p class="profile">First Name:</p>
+    <p class="profile2">{{ userData.firstName }}</p>
+    <p class="profile">Last Name:</p>
+    <p class="profile2">{{ userData.lastName }}</p>
+    <p class="profile">City:</p>
+    <p class="profile2">{{ userData.city }}</p>
+    <p class="profile">District:</p>
+    <p class="profile2">{{ userData.district }}</p>
     <div
       class="nodef"
       *ngIf="
@@ -23,15 +35,22 @@
           !userData.city &&
           !userData.district)
       "
-    >
-      <p>No data found in Local Storage.</p>
-    </div>
+    ></div>
   </div>
 
-  <div class="container1 bg-success text-white m-3" [formGroup]="profileForm">
-    <h2><b>Save & Update Profile</b></h2>
+  <div
+    *ngIf="showNotification2"
+    class="alert alert-success"
+    role="alert"
+    [innerHTML]="notificationMessage2"
+  >
+    {{ notificationMessage2 }}
+  </div>
 
-    <label for="firstName">First Name:</label>
+  <div class="container1 container saveupdate" [formGroup]="profileForm">
+    <h2><b>Save & Update Profile</b></h2>
+    <hr class="cizgi" />
+    <label for="firstName">First Name:</label><br />
     <input
       id="firstName"
       placeholder="Enter the first name"
@@ -39,7 +58,7 @@
     />
     <br /><br />
 
-    <label for="lastName">Last Name:</label>
+    <label for="lastName">Last Name:</label><br />
     <input
       id="lastName"
       type="text"
@@ -48,15 +67,18 @@
     />
     <br /><br />
 
-    <label for="city">City:</label>
+    <label for="city">City:</label><br />
     <select formControlName="city" (change)="onCityChange()">
+      <option value="" disabled selected>Select a city</option>
       <option *ngFor="let city of cities" [value]="city.id">
         {{ city.name }}
       </option>
     </select>
+
     <br /><br />
-    <label for="district">District:</label>
+    <label for="district">District:</label><br />
     <select formControlName="district">
+      <option value="" disabled selected>Select a district</option>
       <option *ngFor="let district of districts" [value]="district.id">
         {{ district.name }}
       </option>
@@ -65,12 +87,39 @@
     <br /><br />
 
     <button
-      class="btn btn-outline-warning btn-ml m-3"
+      class="btn btn-warning btn-ml m-3"
       [disabled]="profileForm.invalid"
       type="button"
-      (click)="updateProfile(userData)"
+      (click)="onSubmit()"
     >
       Save & Update Profile
     </button>
+
+    <div *ngIf="profileForm.invalid" class="validation-errors">
+      <hr class="cizgi" />
+      <h3>Validation errors</h3>
+      <ul>
+        <li *ngIf="profileForm.controls['firstName'].errors?.['minlength']">
+          The <b><i>first name</i></b> is <b>not long enough</b>.
+        </li>
+        <li *ngIf="profileForm.controls['firstName'].errors?.['required']">
+          You must enter the <b>first name</b>.
+        </li>
+
+        <li *ngIf="profileForm.controls['lastName'].errors?.['minlength']">
+          The <b><i>last name</i></b> is <b>not long enough</b>.
+        </li>
+        <li *ngIf="profileForm.controls['lastName'].errors?.['required']">
+          You must enter the <b>last name</b>.
+        </li>
+
+        <li *ngIf="profileForm.controls['city'].errors?.['required']">
+          You must select the <b>city</b>.
+        </li>
+        <li *ngIf="profileForm.controls['district'].errors?.['required']">
+          You must select the <b>district</b>.
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
