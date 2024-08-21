@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   isHomeMode: boolean = false;
   isFavMode: boolean = false;
   isDocMode: boolean = false;
+  
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
         this.isDocMode = this.router.url === '/forms';
       }
     });
+    
   }
   ngOnInit() {
     this.themeService.isDarkMode$.subscribe((isDark) => {

@@ -83,7 +83,7 @@ body.dark-mode .search-bar input {
   height: 40px;
 }
 
-.a1 {
+.searchbtn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -92,7 +92,7 @@ body.dark-mode .search-bar input {
   border-radius: 0.5rem;
 }
 
-.a1 img {
+.searchbtn img {
   height: 20px;
   width: 20px;
 }
@@ -106,7 +106,7 @@ body.dark-mode .search-bar input {
   height: 20px;
 }
 
-.a3 {
+.homefavbtn {
   margin-right: 20px;
 }
 
@@ -169,8 +169,12 @@ body.dark-mode .pronunciation {
 }
 
 body.dark-mode .synant b {
-  color: lightskyblue;
+  color: #87cefa;
   padding-left: 20px;
+}
+
+body.dark-mode .synant{
+  color:#e8eaf6 ;
 }
 
 .kenar {
@@ -227,8 +231,9 @@ body.dark-mode .def {
   color: #e8eaf6;
 }
 
+
 body.dark-mode .part-of-speech {
-  color: lightskyblue;
+  color: #87cefa;
 }
 
 .nodef {
@@ -243,7 +248,7 @@ body.dark-mode .part-of-speech {
   }
   .kenar {
     background-color: #87cefa;
-    box-shadow: 0 0 10px lightgray;
+    box-shadow: 0 0 10px #d3d3d3;
     width: 15% auto;
     height: auto;
     position: fixed;
@@ -288,7 +293,7 @@ body.dark-mode .part-of-speech {
   }
   .kenar {
     background-color: #87cefa;
-    box-shadow: 0 0 10px lightgray;
+    box-shadow: 0 0 10px #d3d3d3;
     width: 9%;
     height: auto;
     position: fixed;

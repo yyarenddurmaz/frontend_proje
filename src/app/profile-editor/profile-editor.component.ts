@@ -93,29 +93,6 @@ export class ProfileEditorComponent implements OnInit {
     }
   }
 
-  // updateProfile(userData: {
-  //   firstName: string;
-  //   lastName: string;
-  //   city: string;
-  //   district: string;
-  // }) {
-  //   this.tempUserData = { ...userData };
-  //   this.profileForm.setValue({
-  //     firstName: userData.firstName,
-  //     lastName: userData.lastName,
-  //     city: userData.city,
-  //     district: userData.district,
-  //   });
-
-  //   if (this.isBrowser) {
-  //     this.saveProfile(userData);
-  //   }
-  //   this.notificationMessage2 = `User information has been saved successfully`;
-  //   this.showNotification2 = true;
-
-  //   setTimeout(() => (this.showNotification2 = false), 4000);
-  // }
-
   saveProfile(userData: {
     firstName: string;
     lastName: string;

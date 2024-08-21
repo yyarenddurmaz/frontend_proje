@@ -7,15 +7,17 @@
       placeholder="Enter the word"
     />
 
-    <button type="button" class="a1 btn bg-white" (click)="searchDefinition()">
+    <button type="button" class="searchbtn btn bg-white" (click)="searchDefinition()">
       <img src="assets/photos/search_icon.png" alt="Search Icon" />
     </button>
   </div>
-
+  <div *ngIf="isLoading">
+    <app-spinner></app-spinner>
+  </div>
   <div class="container1" *ngIf="definition">
     <div>
       <div class="word">{{ word }}<br /></div>
-      <button class="a3 favorite-btn" (click)="toggleFavorite()">
+      <button class="homefavbtn favorite-btn" (click)="toggleFavorite()">
         <img
           [src]="
             isFavorite(word)

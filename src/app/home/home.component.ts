@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit {
   notificationMessage: string = '';
   showNotification: boolean = false;
   notificationType: string | undefined;
+  isLoading: boolean = false;
 
   constructor(
     private dictionaryService: DictionaryService,
@@ -67,32 +68,36 @@ export class HomeComponent implements OnInit {
   }
 
   searchDefinition() {
+    this.isLoading = true;
+
     this.word = this.tempWord.toLowerCase();
     this.noDefinitionMessage = null;
-
-    if (this.word) {
-      this.dictionaryService
-        .getDefinition(this.word)
-        .pipe(
-          catchError((err) => {
-            return throwError((err: any) => new Error(err));
-          })
-        )
-        .subscribe(
-          (data) => {
-            this.definition = data?.[0] || null;
-            if (!this.definition) {
-              this.noDefinitionMessage =
-                'No valid definition found for the word.';
+    setTimeout(() => {
+      if (this.word) {
+        this.dictionaryService
+          .getDefinition(this.word)
+          .pipe(
+            catchError((err) => {
+              return throwError((err: any) => new Error(err));
+            })
+          )
+          .subscribe(
+            (data) => {
+              this.definition = data?.[0] || null;
+              if (!this.definition) {
+                this.noDefinitionMessage =
+                  'No valid definition found for the word.';
+              }
+            },
+            (error) => {
+              console.error('Error:', error);
+              this.noDefinitionMessage = 'No definitions.';
+              this.definition = null;
             }
-          },
-          (error) => {
-            console.error('Error:', error);
-            this.noDefinitionMessage = 'No definitions.';
-            this.definition = null;
-          }
-        );
-    }
+          );
+      }
+      this.isLoading = false;
+    }, 1000);
   }
 
   playAudio(audioUrl: string) {

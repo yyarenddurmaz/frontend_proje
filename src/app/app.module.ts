@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { LocationService } from './location.service';
 import { ThemeService } from './theme.service';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
     LocalStorageComponent,
     HomeComponent,
     ProfileEditorComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,13 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
   ],
-  providers: [provideClientHydration(), provideHttpClient(withFetch()),LocationService,ThemeService],
+  providers: [
+    provideClientHydration(),
+    provideHttpClient(withFetch()),
+    LocationService,
+    ThemeService,
+    SpinnerComponent,
+  ],
   bootstrap: [AppComponent],
   exports: [RouterModule],
 })
