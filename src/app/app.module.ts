@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { LocationService } from './location.service';
+import { ThemeService } from './theme.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,7 +35,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
   ],
-  providers: [provideClientHydration(), provideHttpClient(withFetch()),LocationService],
+  providers: [provideClientHydration(), provideHttpClient(withFetch()),LocationService,ThemeService],
   bootstrap: [AppComponent],
   exports: [RouterModule],
 })

@@ -75,44 +75,46 @@ export class ProfileEditorComponent implements OnInit {
       const cityId = this.profileForm.controls['city'].value;
       const districtId = this.profileForm.controls['district'].value;
 
-      const cityName = this.cities.find(city => city.id == cityId)?.name || '';
-      const districtName = this.districts.find(district => district.id == districtId)?.name || '';
+      const cityName =
+        this.cities.find((city) => city.id == cityId)?.name || '';
+      const districtName =
+        this.districts.find((district) => district.id == districtId)?.name ||
+        '';
 
       this.userData = {
         ...this.profileForm.value,
         city: cityName,
-        district: districtName
+        district: districtName,
       };
 
       this.saveProfile(this.userData);
     } else {
-      console.warn("Form is not valid.");
+      console.warn('Form is not valid.');
     }
   }
 
+  // updateProfile(userData: {
+  //   firstName: string;
+  //   lastName: string;
+  //   city: string;
+  //   district: string;
+  // }) {
+  //   this.tempUserData = { ...userData };
+  //   this.profileForm.setValue({
+  //     firstName: userData.firstName,
+  //     lastName: userData.lastName,
+  //     city: userData.city,
+  //     district: userData.district,
+  //   });
 
-  updateProfile(userData: {
-    firstName: string;
-    lastName: string;
-    city: string;
-    district: string;
-  }) {
-    this.tempUserData = { ...userData };
-    this.profileForm.setValue({
-      firstName: userData.firstName,
-      lastName: userData.lastName,
-      city: userData.city,
-      district: userData.district,
-    });
+  //   if (this.isBrowser) {
+  //     this.saveProfile(userData);
+  //   }
+  //   this.notificationMessage2 = `User information has been saved successfully`;
+  //   this.showNotification2 = true;
 
-    if (this.isBrowser) {
-      this.saveProfile(userData);
-    }
-    this.notificationMessage2 = `User information has been saved successfully`;
-    this.showNotification2 = true;
-
-    setTimeout(() => (this.showNotification2 = false), 4000);
-  }
+  //   setTimeout(() => (this.showNotification2 = false), 4000);
+  // }
 
   saveProfile(userData: {
     firstName: string;
@@ -123,6 +125,10 @@ export class ProfileEditorComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Saving profile...');
       localStorage.setItem('profileData', JSON.stringify(userData));
+      this.notificationMessage2 = `User information has been saved successfully`;
+      this.showNotification2 = true;
+
+      setTimeout(() => (this.showNotification2 = false), 4000);
     }
   }
 
@@ -134,7 +140,9 @@ export class ProfileEditorComponent implements OnInit {
 
         this.locationService.getCities().subscribe((cities: any) => {
           this.cities = cities.data;
-          const city = this.cities.find(city => city.name === storedData.city);
+          const city = this.cities.find(
+            (city) => city.name === storedData.city
+          );
           if (city) {
             this.profileForm.controls['city'].setValue(city.id);
             this.selectedCityId = city.id;
@@ -142,7 +150,9 @@ export class ProfileEditorComponent implements OnInit {
 
             this.locationService.getDistricts().subscribe((districts: any) => {
               this.allDistricts = districts.data;
-              const district = this.allDistricts.find(district => district.name === storedData.district);
+              const district = this.allDistricts.find(
+                (district) => district.name === storedData.district
+              );
               if (district) {
                 this.profileForm.controls['district'].setValue(district.id);
               }
@@ -163,7 +173,7 @@ export class ProfileEditorComponent implements OnInit {
 
       if (confirmed) {
         localStorage.clear();
-        this.tempUserData = {
+        this.userData = {
           firstName: '',
           lastName: '',
           city: '',
@@ -177,6 +187,7 @@ export class ProfileEditorComponent implements OnInit {
     this.showNotification = true;
     setTimeout(() => (this.showNotification = false), 4000);
   }
+
   loadCities() {
     this.locationService.getCities().subscribe((cities: any) => {
       this.cities = cities.data;

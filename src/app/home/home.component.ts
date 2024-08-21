@@ -2,6 +2,9 @@ import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DictionaryService } from '../dictionary.service';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
+import { throws } from 'assert';
+import { ThemeService } from '../theme.service';
 
 interface Phonetic {
   text: string;
@@ -28,7 +31,7 @@ interface DictionaryEntry {
 }
 
 @Component({
-  selector: 'app-home', 
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -46,7 +49,9 @@ export class HomeComponent implements OnInit {
   constructor(
     private dictionaryService: DictionaryService,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
+    private router: Router,
+
+    private themeService: ThemeService
   ) {
     if (isPlatformBrowser(this.platformId)) {
       const storedFavorites = localStorage.getItem('favoriteWords');
@@ -56,17 +61,9 @@ export class HomeComponent implements OnInit {
     }
   }
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      document.body.classList.add('light-mode');
-      document.body.classList.add('home-true');
-    }
-  }
-
-  goToLocalStorage() {
-    this.router.navigate(['/local-storage']).then(
-      (success) => console.log('Navigation successful:', success),
-      (error) => console.error('Navigation error:', error)
-    );
+    this.themeService.isDarkMode$.subscribe((isDark) => {
+      this.isDarkMode = isDark;
+    });
   }
 
   searchDefinition() {
@@ -74,20 +71,27 @@ export class HomeComponent implements OnInit {
     this.noDefinitionMessage = null;
 
     if (this.word) {
-      this.dictionaryService.getDefinition(this.word).subscribe(
-        (data) => {
-          this.definition = data?.[0] || null;
-          if (!this.definition) {
-            this.noDefinitionMessage =
-              'No valid definition found for the word.';
+      this.dictionaryService
+        .getDefinition(this.word)
+        .pipe(
+          catchError((err) => {
+            return throwError((err: any) => new Error(err));
+          })
+        )
+        .subscribe(
+          (data) => {
+            this.definition = data?.[0] || null;
+            if (!this.definition) {
+              this.noDefinitionMessage =
+                'No valid definition found for the word.';
+            }
+          },
+          (error) => {
+            console.error('Error:', error);
+            this.noDefinitionMessage = 'No definitions.';
+            this.definition = null;
           }
-        },
-        (error) => {
-          console.error('Error:', error);
-          this.noDefinitionMessage = 'No definitions.';
-          this.definition = null;
-        }
-      );
+        );
     }
   }
 
@@ -96,18 +100,12 @@ export class HomeComponent implements OnInit {
     audio.play();
   }
 
-  toggleTheme() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isDarkMode = !this.isDarkMode;
-      document.body.classList.toggle('dark-mode', this.isDarkMode);
-      document.body.classList.toggle('light-mode', !this.isDarkMode);
-    }
-  }
-
   toggleFavorite(): void {
     if (this.isFavorite(this.word)) {
-      const confirmed = confirm(`Are you sure you want to remove "${this.word}" from your favorites?`);
-    
+      const confirmed = confirm(
+        `Are you sure you want to remove "${this.word}" from your favorites?`
+      );
+
       if (confirmed) {
         this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
         localStorage.removeItem(this.word);
@@ -124,18 +122,16 @@ export class HomeComponent implements OnInit {
       this.notificationType = 'added';
       this.showNotification = true;
     }
-    
-  
+
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem('favoriteWords', JSON.stringify(this.favoriteWords));
     }
-  
+
     this.showNotification = true;
     setTimeout(() => (this.showNotification = false), 4000);
   }
-  
+
   isFavorite(word: string): boolean {
     return this.favoriteWords.includes(word);
   }
-  
 }

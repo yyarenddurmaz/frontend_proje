@@ -26,6 +26,7 @@
           "
           alt="Fav"
         />
+
       </button>
       <div
       *ngIf="showNotification"
@@ -44,12 +45,12 @@
 
       <div
         *ngFor="let phonetics of definition.phonetics; let i = index"
-        class="pronunciation"
+        class="pronunciation mb-2"
       >
         {{ phonetics.text }} <br />
 
         <img
-          class="sound-btn"
+          class="sound-btn mb-2"
           *ngIf="phonetics.audio"
           [src]="
             isDarkMode
