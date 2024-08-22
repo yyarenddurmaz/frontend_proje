@@ -1,17 +1,8 @@
 <div class="container">
-  <button
-    type="button"
-    class="cleardata btn btn-danger"
-    (click)="clearData()"
-  >
+  <button type="button" class="cleardata btn btn-danger" (click)="clearData()">
     Clear Data
   </button>
-  <div
-    *ngIf="showNotification"
-    class="alert alert-danger"
-    role="alert"
-    [innerHTML]="notificationMessage"
-  >
+  <div *ngIf="showNotification" class="alert alert-danger" role="alert" [innerHTML]="notificationMessage">
     {{ notificationMessage }}
   </div>
   <div class="container1 container">
@@ -25,25 +16,17 @@
     <p class="profile2">{{ userData.city }}</p>
     <p class="profile">District:</p>
     <p class="profile2">{{ userData.district }}</p>
-    <div
-      class="nodef"
-      *ngIf="
+    <div class="nodef text-danger" *ngIf="
         !userData ||
         (userData &&
           !userData.firstName &&
           !userData.lastName &&
           !userData.city &&
           !userData.district)
-      "
-    ></div>
+      ">No data found in Local Storage.</div>
   </div>
 
-  <div
-    *ngIf="showNotification2"
-    class="alert alert-success"
-    role="alert"
-    [innerHTML]="notificationMessage2"
-  >
+  <div *ngIf="showNotification2" class="alert alert-success" role="alert" [innerHTML]="notificationMessage2">
     {{ notificationMessage2 }}
   </div>
 
@@ -51,20 +34,11 @@
     <h2><b>Save & Update Profile</b></h2>
     <hr class="cizgi" />
     <label for="firstName">First Name:</label><br />
-    <input
-      id="firstName"
-      placeholder="Enter the first name"
-      formControlName="firstName"
-    />
+    <input id="firstName" placeholder="Enter the first name" formControlName="firstName" />
     <br /><br />
 
     <label for="lastName">Last Name:</label><br />
-    <input
-      id="lastName"
-      type="text"
-      placeholder="Enter the last name"
-      formControlName="lastName"
-    />
+    <input id="lastName" type="text" placeholder="Enter the last name" formControlName="lastName" />
     <br /><br />
 
     <label for="city">City:</label><br />
@@ -86,12 +60,7 @@
 
     <br /><br />
 
-    <button
-      class="btn btn-warning btn-ml m-3"
-      [disabled]="profileForm.invalid"
-      type="button"
-      (click)="onSubmit()"
-    >
+    <button class="btn btn-warning btn-ml m-3" [disabled]="profileForm.invalid" type="button" (click)="onSubmit()">
       Save & Update Profile
     </button>
 

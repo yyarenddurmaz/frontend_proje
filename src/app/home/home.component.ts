@@ -69,10 +69,10 @@ export class HomeComponent implements OnInit {
 
   searchDefinition() {
     this.isLoading = true;
-
-    this.word = this.tempWord.toLowerCase();
-    this.noDefinitionMessage = null;
     setTimeout(() => {
+      this.word = this.tempWord.toLowerCase();
+      this.noDefinitionMessage = null;
+
       if (this.word) {
         this.dictionaryService
           .getDefinition(this.word)
