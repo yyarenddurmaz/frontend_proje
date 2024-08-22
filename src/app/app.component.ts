@@ -2,6 +2,7 @@ import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { ThemeService } from './theme.service';
+import { environment } from './../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,7 @@ import { ThemeService } from './theme.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
+
   isDarkMode: boolean = false;
   isHomeMode: boolean = false;
   isFavMode: boolean = false;
@@ -23,6 +22,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private themeService: ThemeService
   ) {
+    console.log(environment.production);
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isHomeMode = this.router.url === '/';
@@ -44,6 +44,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
+  title2 = 'app works!';
   ngOnInit() {
     this.themeService.isDarkMode$.subscribe((isDark) => {
       this.isDarkMode = isDark;

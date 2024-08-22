@@ -26,11 +26,10 @@
             "outputPath": "dist/frontend_proje",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/assets",
+            "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -66,19 +65,39 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "frontend_proje:build"
+          },
           "configurations": {
+            "development": {
+              "buildTarget": "frontend_proje:build:development"
+            },
             "production": {
               "buildTarget": "frontend_proje:build:production"
             },
-            "development": {
-              "buildTarget": "frontend_proje:build:development"
+            "staging": {
+              "buildTarget": "frontend_proje:build:staging"
             }
           },
           "defaultConfiguration": "development"
@@ -89,10 +108,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
