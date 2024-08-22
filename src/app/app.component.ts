@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   isHomeMode: boolean = false;
   isFavMode: boolean = false;
   isDocMode: boolean = false;
-  
+  isArrayMode: boolean = false;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -38,7 +38,11 @@ export class AppComponent implements OnInit {
         this.isDocMode = this.router.url === '/forms';
       }
     });
-    
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isArrayMode = this.router.url === '/array';
+      }
+    });
   }
   ngOnInit() {
     this.themeService.isDarkMode$.subscribe((isDark) => {
@@ -69,6 +73,12 @@ export class AppComponent implements OnInit {
   goToForms() {
     if (!this.isDocMode) {
       this.router.navigate(['forms']);
+    }
+  }
+
+  goToArray() {
+    if (!this.isArrayMode) {
+      this.router.navigate(['array']);
     }
   }
 }

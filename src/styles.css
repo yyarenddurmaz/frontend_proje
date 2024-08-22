@@ -196,7 +196,8 @@ body.dark-mode .synant{
 .ffav,
 .dmod,
 .home,
-.form {
+.form,
+.array {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -209,7 +210,8 @@ body.dark-mode .synant{
 .ffav img,
 .dmod img,
 .home img,
-.form img {
+.form img,
+.array img {
   height: 40px;
   width: 40px;
   display: flex;
@@ -265,7 +267,8 @@ body.dark-mode .part-of-speech {
   .ffav,
   .dmod,
   .home,
-  .form {
+  .form,
+  .array {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -278,7 +281,8 @@ body.dark-mode .part-of-speech {
   .ffav img,
   .dmod img,
   .home img,
-  .form img {
+  .form img,
+  .array img {
     height: 30px;
     width: 30px;
     display: flex;
@@ -311,7 +315,8 @@ body.dark-mode .part-of-speech {
   .ffav,
   .dmod,
   .home,
-  .form {
+  .form,
+  .array {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -324,7 +329,8 @@ body.dark-mode .part-of-speech {
   .ffav img,
   .dmod img,
   .home img,
-  .form img {
+  .form img,
+  .array img {
     height: 17px;
     width: 17px;
     display: flex;

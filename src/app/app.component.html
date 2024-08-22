@@ -42,4 +42,15 @@
       alt="Forms"
     />
   </button>
+
+  <button (click)="goToArray()" class="array btn">
+    <img
+      [src]="
+        isArrayMode
+          ? 'assets/photos/full_array_icon.png'
+          : 'assets/photos/array_icon.png'
+      "
+      alt="Array"
+    />
+  </button>
 </div>

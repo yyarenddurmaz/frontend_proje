@@ -15,11 +15,13 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
 import { LocationService } from './location.service';
 import { ThemeService } from './theme.service';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { PipesComponent } from './pipes/pipes.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'local-storage', component: LocalStorageComponent },
   { path: 'forms', component: ProfileEditorComponent },
+  { path: 'array', component: PipesComponent },
 ];
 
 @NgModule({
@@ -29,6 +31,7 @@ const routes: Routes = [
     HomeComponent,
     ProfileEditorComponent,
     SpinnerComponent,
+    PipesComponent,
   ],
   imports: [
     BrowserModule,

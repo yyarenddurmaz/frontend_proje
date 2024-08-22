@@ -1,0 +1,25 @@
+<div class="container text-center">
+  <p class="word">Static Array & Pipe</p>
+  <ul *ngFor="let item of staticArray" style="list-style: none">
+    <hr class="cizgi" />
+    <li><strong>Name: </strong> {{ item.name | titlecase }}</li>
+    <li><strong>Upper Name: </strong> {{ item.name | uppercase }}</li>
+    <li><strong>Lower Name: </strong> {{ item.name | lowercase }}</li>
+    <li>
+      <strong>Currency: </strong>
+      {{ item.currency | currency : "TRY" }}
+    </li>
+    <li><strong>Full Date: </strong> {{ item.date | date : "fullDate" }}</li>
+    <li><strong>Short Date: </strong> {{ item.date | date : "shortDate" }}</li>
+    <li><strong>Medium Date: </strong> {{ item.date | date : "mediumDate" }}</li>
+    <li><strong>Long Date: </strong> {{ item.date | date : "longDate" }}</li>
+    <li>
+      <strong>Pi: </strong>{{ item.pi | number }}
+    </li>
+    <li>{{ last$ |async}}</li>
+    <li>
+      {{ myObservable$ | async }}
+    </li>
+    <li>{{ object|json }}</li>
+  </ul>
+</div>
