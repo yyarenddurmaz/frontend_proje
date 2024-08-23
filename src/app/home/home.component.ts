@@ -74,29 +74,25 @@ export class HomeComponent implements OnInit {
       this.noDefinitionMessage = null;
 
       if (this.word) {
-        this.dictionaryService
-          .getDefinition(this.word)
-          .pipe(
-            catchError((err) => {
-              return throwError((err: any) => new Error(err));
-            })
-          )
-          .subscribe(
-            (data) => {
-              this.definition = data?.[0] || null;
-              if (!this.definition) {
-                this.noDefinitionMessage =
-                  'No valid definition found for the word.';
-              }
-            },
-            (error) => {
-              console.error('Error:', error);
-              this.noDefinitionMessage = 'No definitions.';
-              this.definition = null;
+        this.dictionaryService.getDefinition(this.word).subscribe(
+          (data) => {
+            this.definition = data?.[0] || null;
+            if (!this.definition) {
+              this.noDefinitionMessage =
+                'No valid definition found for the word.';
             }
-          );
+            this.isLoading = false;
+          },
+          (error) => {
+            console.error('Error:', error);
+            this.noDefinitionMessage = 'No definitions.';
+            this.definition = null;
+            this.isLoading = false;
+          }
+        );
+      } else {
+        this.isLoading = false;
       }
-      this.isLoading = false;
     }, 1000);
   }
 

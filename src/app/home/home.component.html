@@ -7,89 +7,92 @@
       placeholder="Enter the word"
     />
 
-    <button type="button" class="searchbtn btn bg-white" (click)="searchDefinition()">
+    <button
+      type="button"
+      class="searchbtn btn bg-white"
+      (click)="searchDefinition()"
+    >
       <img src="assets/photos/search_icon.png" alt="Search Icon" />
     </button>
   </div>
   <div *ngIf="isLoading">
     <app-spinner></app-spinner>
   </div>
-  <div class="container1" *ngIf="definition">
-    <div>
-      <div class="word">{{ word }}<br /></div>
-      <button class="homefavbtn favorite-btn" (click)="toggleFavorite()">
-        <img
-          [src]="
-            isFavorite(word)
-              ? 'assets/photos/full_favorite_icon.png' 
-              : isDarkMode
+  <div *ngIf="!isLoading">
+    <div class="container1" *ngIf="definition">
+      <div>
+        <div class="word">{{ word }}<br /></div>
+        <button class="homefavbtn favorite-btn" (click)="toggleFavorite()">
+          <img
+            [src]="
+              isFavorite(word)
+                ? 'assets/photos/full_favorite_icon.png'
+                : isDarkMode
                 ? 'assets/photos/light_favorite_icon.png'
                 : 'assets/photos/favorite_icon.png'
-          "
-          alt="Fav"
-        />
+            "
+            alt="Fav"
+          />
+        </button>
+        <div
+          *ngIf="showNotification"
+          class="alert"
+          role="alert"
+          [ngClass]="{
+            'alert-primary': notificationType === 'added',
+            'alert-danger': notificationType === 'removed'
+          }"
+          [innerHTML]="notificationMessage"
+        ></div>
 
-      </button>
-      <div
-      *ngIf="showNotification"
-      class="alert"
-      role="alert"
-      [ngClass]="{
-        'alert-primary': notificationType === 'added',
-        'alert-danger': notificationType === 'removed'
-      }"
-      [innerHTML]="notificationMessage"
-    >
-    </div>
-    
-      
-      <hr class="cizgi" />
+        <hr class="cizgi" />
 
-      <div
-        *ngFor="let phonetics of definition.phonetics; let i = index"
-        class="pronunciation mb-2"
-      >
-        {{ phonetics.text }} <br />
+        <div
+          *ngFor="let phonetics of definition.phonetics; let i = index"
+          class="pronunciation mb-2"
+        >
+          {{ phonetics.text }} <br />
 
-        <img
-          class="sound-btn mb-2"
-          *ngIf="phonetics.audio"
-          [src]="
-            isDarkMode
-              ? 'assets/photos/dark_mode_sound_icon.png'
-              : 'assets/photos/sound_icon.png'
-          "
-          alt="Sound Icon"
-          (click)="playAudio(phonetics.audio)"
-        />
+          <img
+            class="sound-btn mb-2"
+            *ngIf="phonetics.audio"
+            [src]="
+              isDarkMode
+                ? 'assets/photos/dark_mode_sound_icon.png'
+                : 'assets/photos/sound_icon.png'
+            "
+            alt="Sound Icon"
+            (click)="playAudio(phonetics.audio)"
+          />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="definition">
-    <div *ngFor="let meaning of definition.meanings">
-      <div *ngFor="let def of meaning.definitions">
-        <p class="synant" *ngIf="def.synonyms.length">
-          <b>Synonyms: </b>{{ def.synonyms.join(", ") }}
-        </p>
-        <p class="synant" *ngIf="def.antonyms?.length">
-          <b>Antonyms: </b>{{ def.antonyms.join(", ") }}
-        </p>
+    <div *ngIf="definition">
+      <div *ngFor="let meaning of definition.meanings">
+        <div *ngFor="let def of meaning.definitions">
+          <p class="synant" *ngIf="def.synonyms.length">
+            <b>Synonyms: </b>{{ def.synonyms.join(", ") }}
+          </p>
+          <p class="synant" *ngIf="def.antonyms?.length">
+            <b>Antonyms: </b>{{ def.antonyms.join(", ") }}
+          </p>
+        </div>
+      </div>
+      <div *ngFor="let meaning of definition.meanings">
+        <div class="definition">
+          <p class="part-of-speech">{{ meaning.partOfSpeech }}</p>
+        </div>
+        <ol>
+          <li class="def" *ngFor="let def of meaning.definitions">
+            <p><b>Definition: </b> {{ def.definition }}</p>
+            <p *ngIf="def.example"><b>Example: </b> {{ def.example }}</p>
+          </li>
+        </ol>
       </div>
     </div>
-    <div *ngFor="let meaning of definition.meanings">
-      <div class="definition">
-        <p class="part-of-speech">{{ meaning.partOfSpeech }}</p>
-      </div>
-      <ol>
-        <li class="def" *ngFor="let def of meaning.definitions">
-          <p><b>Definition: </b> {{ def.definition }}</p>
-          <p *ngIf="def.example"><b>Example: </b> {{ def.example }}</p>
-        </li>
-      </ol>
+    <div class="nodef" *ngIf="noDefinitionMessage">
+      <p>{{ noDefinitionMessage }}</p>
     </div>
-  </div>
-  <div class="nodef" *ngIf="noDefinitionMessage">
-    <p>{{ noDefinitionMessage }}</p>
   </div>
 </div>
