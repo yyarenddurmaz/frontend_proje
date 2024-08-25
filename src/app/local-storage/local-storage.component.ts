@@ -12,11 +12,13 @@ export class LocalStorageComponent implements OnInit {
   notificationMessage: string = '';
   showNotification: boolean = false;
   notificationType: string | undefined;
+  isBrowser: boolean=true;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       this.loadStoredData();
     } else {
       console.warn('Local Storage is not available in this environment.');
@@ -24,7 +26,7 @@ export class LocalStorageComponent implements OnInit {
   }
 
   loadStoredData(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       const favWords = localStorage.getItem('favoriteWords');
       if (favWords) {
         const words = JSON.parse(favWords) as string[];
@@ -40,7 +42,7 @@ export class LocalStorageComponent implements OnInit {
   }
 
   deleteWord(word: string): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       const confirmed = confirm(
         `Are you sure you want to remove "${word}" from your favorites?`
       );
@@ -57,7 +59,7 @@ export class LocalStorageComponent implements OnInit {
   }
 
   clearAll(): void {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       const confirmed = confirm(`Are you sure you want to remove all words from your favorites?`);
     
       if (confirmed) {

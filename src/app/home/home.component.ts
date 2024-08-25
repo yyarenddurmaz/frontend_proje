@@ -46,6 +46,7 @@ export class HomeComponent implements OnInit {
   showNotification: boolean = false;
   notificationType: string | undefined;
   isLoading: boolean = false;
+  isBrowser: boolean = true;
 
   constructor(
     private dictionaryService: DictionaryService,
@@ -54,12 +55,14 @@ export class HomeComponent implements OnInit {
 
     private themeService: ThemeService
   ) {
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       const storedFavorites = localStorage.getItem('favoriteWords');
       if (storedFavorites) {
         this.favoriteWords = JSON.parse(storedFavorites);
       }
     }
+
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
   ngOnInit() {
     this.themeService.isDarkMode$.subscribe((isDark) => {
@@ -124,7 +127,7 @@ export class HomeComponent implements OnInit {
       this.showNotification = true;
     }
 
-    if (isPlatformBrowser(this.platformId)) {
+    if (this.isBrowser) {
       localStorage.setItem('favoriteWords', JSON.stringify(this.favoriteWords));
     }
 
