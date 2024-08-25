@@ -1,7 +1,7 @@
 <div class="container">
-  <p class="word">Favorites</p>
+  <p class="word">{{'Favorites'|translate}}</p>
   <button type="button" class="btn clearall btn-danger" (click)="clearAll()">
-    Clear All
+    {{'Clear All'|translate}}
   </button>
   <div *ngIf="showNotification" class="alert alert-danger" role="alert" [innerHTML]="notificationMessage">
     {{ notificationMessage }}
@@ -27,6 +27,6 @@
   </table>
 
   <div class="nodef" *ngIf="storedData && storedData.length === 0">
-    <p>No data found in Local Storage.</p>
+    <p>{{'Nodef'|translate}}</p>
   </div>
 </div>

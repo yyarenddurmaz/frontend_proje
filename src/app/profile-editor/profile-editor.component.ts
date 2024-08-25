@@ -7,6 +7,7 @@ import {
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { LocationService } from '../location.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-editor',
@@ -31,7 +32,8 @@ export class ProfileEditorComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private translate: TranslateService
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
@@ -102,10 +104,15 @@ export class ProfileEditorComponent implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       console.log('Saving profile...');
       localStorage.setItem('profileData', JSON.stringify(userData));
-      this.notificationMessage2 = `User information has been saved successfully`;
-      this.showNotification2 = true;
 
-      setTimeout(() => (this.showNotification2 = false), 4000);
+      this.translate
+        .get('usersuccess')
+        .subscribe((translatedMessage: string) => {
+          this.notificationMessage2 = translatedMessage;
+          this.showNotification2 = true;
+
+          setTimeout(() => (this.showNotification2 = false), 4000);
+        });
     }
   }
 
@@ -144,25 +151,30 @@ export class ProfileEditorComponent implements OnInit {
 
   clearData(): void {
     if (this.isBrowser) {
-      const confirmed = confirm(
-        `Are you sure you want to delete user information?`
-      );
+      this.translate
+        .get('deleteusersure')
+        .subscribe((confirmationMessage: string) => {
+          const confirmed = confirm(confirmationMessage);
+          if (confirmed) {
+            localStorage.clear();
+            this.userData = {
+              firstName: '',
+              lastName: '',
+              city: '',
+              district: '',
+            };
 
-      if (confirmed) {
-        localStorage.clear();
-        this.userData = {
-          firstName: '',
-          lastName: '',
-          city: '',
-          district: '',
-        };
-        this.notificationMessage = `User information has been deleted.`;
-        this.showNotification = true;
-        this.profileForm.reset();
-      }
+            this.translate
+              .get('USER_INFO_DELETED')
+              .subscribe((notificationMessage: string) => {
+                this.notificationMessage = notificationMessage;
+                this.showNotification = true;
+
+                setTimeout(() => (this.showNotification = false), 4000);
+              });
+          }
+        });
     }
-    this.showNotification = true;
-    setTimeout(() => (this.showNotification = false), 4000);
   }
 
   loadCities() {

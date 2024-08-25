@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { throws } from 'assert';
 import { ThemeService } from '../theme.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface Phonetic {
   text: string;
@@ -46,23 +47,21 @@ export class HomeComponent implements OnInit {
   showNotification: boolean = false;
   notificationType: string | undefined;
   isLoading: boolean = false;
-  isBrowser: boolean = true;
 
   constructor(
     private dictionaryService: DictionaryService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
+    private translate: TranslateService,
 
     private themeService: ThemeService
   ) {
-    if (this.isBrowser) {
+    if (isPlatformBrowser(this.platformId)) {
       const storedFavorites = localStorage.getItem('favoriteWords');
       if (storedFavorites) {
         this.favoriteWords = JSON.parse(storedFavorites);
       }
     }
-
-    this.isBrowser = isPlatformBrowser(this.platformId);
   }
   ngOnInit() {
     this.themeService.isDarkMode$.subscribe((isDark) => {
@@ -81,14 +80,19 @@ export class HomeComponent implements OnInit {
           (data) => {
             this.definition = data?.[0] || null;
             if (!this.definition) {
-              this.noDefinitionMessage =
-                'No valid definition found for the word.';
+              this.translate.get('NO_DEFINITIONS').subscribe((res: string) => {
+                this.noDefinitionMessage = res;
+              });
             }
             this.isLoading = false;
           },
           (error) => {
             console.error('Error:', error);
-            this.noDefinitionMessage = 'No definitions.';
+            this.translate
+              .get('ERROR_FETCHING_DEFINITIONS')
+              .subscribe((err: string) => {
+                this.noDefinitionMessage = err;
+              });
             this.definition = null;
             this.isLoading = false;
           }
@@ -106,33 +110,57 @@ export class HomeComponent implements OnInit {
 
   toggleFavorite(): void {
     if (this.isFavorite(this.word)) {
-      const confirmed = confirm(
-        `Are you sure you want to remove "${this.word}" from your favorites?`
-      );
+      this.translate
+        .get('CONFIRM_REMOVE', { word: this.word })
+        .subscribe((translatedMessage: string) => {
+          const confirmed = confirm(translatedMessage);
+          if (confirmed) {
+            this.favoriteWords = this.favoriteWords.filter(
+              (w) => w !== this.word
+            );
+            localStorage.removeItem(this.word);
 
-      if (confirmed) {
-        this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
-        localStorage.removeItem(this.word);
-        this.notificationMessage = `<b>${this.word}</b> removed from favorites.`;
-        this.notificationType = 'removed';
-        this.showNotification = true;
-      } else {
-        return;
-      }
+            this.translate
+              .get('removed', { word: this.word })
+              .subscribe((translatedNotification: string) => {
+                this.notificationMessage = translatedNotification;
+                this.notificationType = 'removed';
+                this.showNotification = true;
+              });
+
+            if (isPlatformBrowser(this.platformId)) {
+              localStorage.setItem(
+                'favoriteWords',
+                JSON.stringify(this.favoriteWords)
+              );
+            }
+
+            this.showNotification = true;
+            setTimeout(() => (this.showNotification = false), 4000);
+          }
+        });
     } else {
       this.favoriteWords.push(this.word);
       localStorage.setItem(this.word, JSON.stringify(this.definition));
-      this.notificationMessage = `<b>${this.word}</b> added to favorites.`;
-      this.notificationType = 'added';
+
+      this.translate
+        .get('added', { word: this.word })
+        .subscribe((translatedNotification: string) => {
+          this.notificationMessage = translatedNotification;
+          this.notificationType = 'added';
+          this.showNotification = true;
+        });
+
+      if (isPlatformBrowser(this.platformId)) {
+        localStorage.setItem(
+          'favoriteWords',
+          JSON.stringify(this.favoriteWords)
+        );
+      }
+
       this.showNotification = true;
+      setTimeout(() => (this.showNotification = false), 4000);
     }
-
-    if (this.isBrowser) {
-      localStorage.setItem('favoriteWords', JSON.stringify(this.favoriteWords));
-    }
-
-    this.showNotification = true;
-    setTimeout(() => (this.showNotification = false), 4000);
   }
 
   isFavorite(word: string): boolean {

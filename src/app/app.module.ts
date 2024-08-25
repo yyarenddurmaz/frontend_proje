@@ -3,7 +3,12 @@ import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  provideHttpClient,
+  withFetch,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -16,6 +21,8 @@ import { LocationService } from './location.service';
 import { ThemeService } from './theme.service';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PipesComponent } from './pipes/pipes.component';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,6 +30,10 @@ const routes: Routes = [
   { path: 'forms', component: ProfileEditorComponent },
   { path: 'array', component: PipesComponent },
 ];
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -39,6 +50,14 @@ const routes: Routes = [
     FormsModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     provideClientHydration(),

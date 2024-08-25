@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { NavigationEnd, Router } from '@angular/router';
 import { ThemeService } from './theme.service';
 import { environment } from './../environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,9 @@ import { environment } from './../environments/environment';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   isDarkMode: boolean = false;
   isHomeMode: boolean = false;
   isFavMode: boolean = false;
@@ -20,8 +23,18 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private translate: TranslateService
   ) {
+
+    translate.addLangs(['en', 'tr']);
+    translate.setDefaultLang('en');
+
+    if (isPlatformBrowser(this.platformId)) {
+      const browserLang = translate.getBrowserLang();
+      translate.use(browserLang && browserLang.match(/en|tr/) ? browserLang : 'en');
+    }
+
     console.log(environment.production);
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -44,11 +57,16 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  title2 = 'app works!';
+
   ngOnInit() {
     this.themeService.isDarkMode$.subscribe((isDark) => {
       this.isDarkMode = isDark;
     });
+  }
+  switchLanguage(language: string) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.translate.use(language);
+    }
   }
   homeTheme() {
     //home sayfasındayken iconun içi dolu olmasını sağlıyor.
@@ -58,10 +76,7 @@ export class AppComponent implements OnInit {
   }
   goToLocalStorage() {
     //navigate ve favoriler sayfasındayken iconun içi dolu olmasını sağlıyor.
-    this.router.navigate(['/local-storage']).then(
-      (success) => console.log('Navigation successful: ', success),
-      (error) => console.error('Navigation error: ', error)
-    );
+    this.router.navigate(['/local-storage']);
     if (!this.isFavMode) {
       this.router.navigate(['/local-storage']);
     }

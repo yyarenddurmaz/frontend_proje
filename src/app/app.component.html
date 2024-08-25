@@ -1,6 +1,20 @@
-<router-outlet></router-outlet> 
+<router-outlet></router-outlet>
+
 <div class="kenar">
-  <button (click)="homeTheme()" class="home btn">
+  <div>
+    <button class="home btn" title="{{ 'English' | translate }}" (click)="switchLanguage('en')">
+      <img src="assets/photos/en.png" alt="english" />
+    </button>
+    <button class="home btn" title="{{ 'Turkish' | translate }}" (click)="switchLanguage('tr')">
+      <img src="assets/photos/tr.png" alt="turkish" />
+    </button>
+  </div>
+  <hr class="cizgi" />
+  <button
+    (click)="homeTheme()"
+    title="{{ 'Home' | translate }}"
+    class="home btn"
+  >
     <img
       [src]="
         isHomeMode
@@ -10,7 +24,7 @@
       alt="Home"
     />
   </button>
-  <button (click)="goToLocalStorage()" class="ffav btn">
+  <button (click)="goToLocalStorage()" title="{{ 'Fav' | translate }}" class="ffav btn">
     <img
       [src]="
         isFavMode
@@ -21,7 +35,7 @@
     />
   </button>
 
-  <button (click)="toggleTheme()" class="dmod btn">
+  <button (click)="toggleTheme()" title="{{ 'Dark' | translate }}" class="dmod btn">
     <img
       [src]="
         isDarkMode
@@ -32,7 +46,7 @@
     />
   </button>
 
-  <button (click)="goToForms()" class="form btn">
+  <button (click)="goToForms()" title="{{ 'Forms' | translate }}" class="form btn">
     <img
       [src]="
         isDocMode
@@ -43,7 +57,7 @@
     />
   </button>
 
-  <button (click)="goToArray()" class="array btn">
+  <button (click)="goToArray()" title="{{ 'Arrays' | translate }}" class="array btn">
     <img
       [src]="
         isArrayMode
