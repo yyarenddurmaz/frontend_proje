@@ -80,19 +80,16 @@ export class HomeComponent implements OnInit {
           (data) => {
             this.definition = data?.[0] || null;
             if (!this.definition) {
-              this.noDefinitionMessage = this.translate
-              .instant('NO_DEFINITIONS')
+              this.noDefinitionMessage =
+                this.translate.instant('NO_DEFINITIONS');
             }
             this.isLoading = false;
           },
           (error) => {
             console.error('Error:', error);
-            this.noDefinitionMessage = this.translate
-              .instant('ERROR_FETCHING_DEFINITIONS')
-              // .subscribe((err: string) => {
-              //   this.noDefinitionMessage = err;
-              // });
-
+            this.noDefinitionMessage = this.translate.instant(
+              'ERROR_FETCHING_DEFINITIONS'
+            );
             this.definition = null;
             this.isLoading = false;
           }
@@ -110,46 +107,37 @@ export class HomeComponent implements OnInit {
 
   toggleFavorite(): void {
     if (this.isFavorite(this.word)) {
-      this.translate
-        .get('CONFIRM_REMOVE', { word: this.word })
-        .subscribe((translatedMessage: string) => {
-          const confirmed = confirm(translatedMessage);
-          if (confirmed) {
-            this.favoriteWords = this.favoriteWords.filter(
-              (w) => w !== this.word
-            );
-            localStorage.removeItem(this.word);
+      const confirmed = confirm(
+        this.translate.instant('CONFIRM_REMOVE', { word: this.word })
+      );
+      if (confirmed) {
+        this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
+        localStorage.removeItem(this.word);
 
-            this.translate
-              .get('removed', { word: this.word })
-              .subscribe((translatedNotification: string) => {
-                this.notificationMessage = translatedNotification;
-                this.notificationType = 'removed';
-                this.showNotification = true;
-              });
-
-            if (isPlatformBrowser(this.platformId)) {
-              localStorage.setItem(
-                'favoriteWords',
-                JSON.stringify(this.favoriteWords)
-              );
-            }
-
-            this.showNotification = true;
-            setTimeout(() => (this.showNotification = false), 4000);
-          }
+        this.notificationMessage = this.translate.instant('removed', {
+          word: this.word,
         });
+        this.notificationType = 'removed';
+        this.showNotification = true;
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.setItem(
+            'favoriteWords',
+            JSON.stringify(this.favoriteWords)
+          );
+        }
+
+        this.showNotification = true;
+        setTimeout(() => (this.showNotification = false), 4000);
+      }
     } else {
       this.favoriteWords.push(this.word);
       localStorage.setItem(this.word, JSON.stringify(this.definition));
 
-      this.translate
-        .get('added', { word: this.word })
-        .subscribe((translatedNotification: string) => {
-          this.notificationMessage = translatedNotification;
-          this.notificationType = 'added';
-          this.showNotification = true;
-        });
+      this.notificationMessage = this.translate.instant('added', {
+        word: this.word,
+      });
+      this.notificationType = 'added';
+      this.showNotification = true;
 
       if (isPlatformBrowser(this.platformId)) {
         localStorage.setItem(

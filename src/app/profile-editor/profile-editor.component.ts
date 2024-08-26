@@ -105,14 +105,10 @@ export class ProfileEditorComponent implements OnInit {
       console.log('Saving profile...');
       localStorage.setItem('profileData', JSON.stringify(userData));
 
-      this.translate
-        .get('usersuccess')
-        .subscribe((translatedMessage: string) => {
-          this.notificationMessage2 = translatedMessage;
-          this.showNotification2 = true;
+      this.notificationMessage2 = this.translate.instant('usersuccess');
+      this.showNotification2 = true;
 
-          setTimeout(() => (this.showNotification2 = false), 4000);
-        });
+      setTimeout(() => (this.showNotification2 = false), 4000);
     }
   }
 
@@ -151,29 +147,21 @@ export class ProfileEditorComponent implements OnInit {
 
   clearData(): void {
     if (this.isBrowser) {
-      this.translate
-        .get('deleteusersure')
-        .subscribe((confirmationMessage: string) => {
-          const confirmed = confirm(confirmationMessage);
-          if (confirmed) {
-            localStorage.clear();
-            this.userData = {
-              firstName: '',
-              lastName: '',
-              city: '',
-              district: '',
-            };
+      const confirmed = confirm(this.translate.instant('deleteusersure'));
+      if (confirmed) {
+        localStorage.clear();
+        this.userData = {
+          firstName: '',
+          lastName: '',
+          city: '',
+          district: '',
+        };
 
-            this.translate
-              .get('USER_INFO_DELETED')
-              .subscribe((notificationMessage: string) => {
-                this.notificationMessage = notificationMessage;
-                this.showNotification = true;
+        this.notificationMessage = this.translate.instant('USER_INFO_DELETED');
+        this.showNotification = true;
 
-                setTimeout(() => (this.showNotification = false), 4000);
-              });
-          }
-        });
+        setTimeout(() => (this.showNotification = false), 4000);
+      }
     }
   }
 

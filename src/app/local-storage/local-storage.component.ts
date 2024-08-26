@@ -36,10 +36,8 @@ export class LocalStorageComponent implements OnInit {
           return { word, meaning };
         });
       } else {
-        this.translate.get('Nodef').subscribe((res: string) => {
-          console.warn(res);
-          this.noDefinitionMessage = res;
-        });
+        console.warn(this.translate.instant('Nodef'));
+        this.noDefinitionMessage = this.translate.instant('Nodef');
         this.storedData = [];
       }
     }
@@ -47,44 +45,32 @@ export class LocalStorageComponent implements OnInit {
 
   deleteWord(word: string): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.translate
-        .get('CONFIRM_REMOVE', { word })
-        .subscribe((translatedMessage: string) => {
-          const confirmed = confirm(translatedMessage);
-          if (confirmed) {
+      const confirmed = confirm(
+        this.translate.instant('CONFIRM_REMOVE', { word })
+      );
+      if (confirmed) {
+        this.storedData = this.storedData.filter((item) => item.word !== word);
 
-            this.storedData = this.storedData.filter((item) => item.word !== word);
+        localStorage.removeItem(word);
 
-            localStorage.removeItem(word);
-
-            const updatedFavWords = this.storedData.map((item) => item.word);
-            localStorage.setItem('favoriteWords', JSON.stringify(updatedFavWords));
-          }
-        });
+        const updatedFavWords = this.storedData.map((item) => item.word);
+        localStorage.setItem('favoriteWords', JSON.stringify(updatedFavWords));
+      }
     }
   }
 
   clearAll(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.translate
-        .get('allremovedsure')
-        .subscribe((all: string) => {
-          const confirmed = confirm(all);
-          if (confirmed) {
-            localStorage.clear();
-            this.storedData = [];
-            this.translate
-                  .get('allwordsremoved')
-                  .subscribe((res: string) => {
-                    this.notificationMessage = res;
-                    this.showNotification = true;
-                  });
-          } else {
-            return;
-          }
-        });
+      const confirmed = confirm(this.translate.instant('allremovedsure'));
+      if (confirmed) {
+        localStorage.clear();
+        this.storedData = [];
 
-      
+        this.notificationMessage = this.translate.instant('allwordsremoved');
+        this.showNotification = true;
+      } else {
+        return;
+      }
     }
     this.showNotification = true;
     setTimeout(() => (this.showNotification = false), 4000);
