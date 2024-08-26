@@ -80,19 +80,19 @@ export class HomeComponent implements OnInit {
           (data) => {
             this.definition = data?.[0] || null;
             if (!this.definition) {
-              this.translate.get('NO_DEFINITIONS').subscribe((res: string) => {
-                this.noDefinitionMessage = res;
-              });
+              this.noDefinitionMessage = this.translate
+              .instant('NO_DEFINITIONS')
             }
             this.isLoading = false;
           },
           (error) => {
             console.error('Error:', error);
-            this.translate
-              .get('ERROR_FETCHING_DEFINITIONS')
-              .subscribe((err: string) => {
-                this.noDefinitionMessage = err;
-              });
+            this.noDefinitionMessage = this.translate
+              .instant('ERROR_FETCHING_DEFINITIONS')
+              // .subscribe((err: string) => {
+              //   this.noDefinitionMessage = err;
+              // });
+
             this.definition = null;
             this.isLoading = false;
           }

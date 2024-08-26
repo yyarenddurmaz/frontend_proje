@@ -2,10 +2,27 @@
 
 <div class="kenar">
   <div>
-    <button class="home btn" title="{{ 'English' | translate }}" (click)="switchLanguage('en')">
+    <div class="langChoice">
+      <div *ngIf="currentLanguage === 'en'">
+        {{ "English" | translate }}
+      </div>
+      <div *ngIf="currentLanguage === 'tr'">
+        {{ "Turkish" | translate }}
+      </div>
+    </div>
+
+    <button
+      class="home btn"
+      title="{{ 'English' | translate }}"
+      (click)="switchLanguage('en')"
+    >
       <img src="assets/photos/en.png" alt="english" />
     </button>
-    <button class="home btn" title="{{ 'Turkish' | translate }}" (click)="switchLanguage('tr')">
+    <button
+      class="home btn"
+      title="{{ 'Turkish' | translate }}"
+      (click)="switchLanguage('tr')"
+    >
       <img src="assets/photos/tr.png" alt="turkish" />
     </button>
   </div>
@@ -24,7 +41,11 @@
       alt="Home"
     />
   </button>
-  <button (click)="goToLocalStorage()" title="{{ 'Fav' | translate }}" class="ffav btn">
+  <button
+    (click)="goToLocalStorage()"
+    title="{{ 'Fav' | translate }}"
+    class="ffav btn"
+  >
     <img
       [src]="
         isFavMode
@@ -35,7 +56,11 @@
     />
   </button>
 
-  <button (click)="toggleTheme()" title="{{ 'Dark' | translate }}" class="dmod btn">
+  <button
+    (click)="toggleTheme()"
+    title="{{ 'Dark' | translate }}"
+    class="dmod btn"
+  >
     <img
       [src]="
         isDarkMode
@@ -46,7 +71,11 @@
     />
   </button>
 
-  <button (click)="goToForms()" title="{{ 'Forms' | translate }}" class="form btn">
+  <button
+    (click)="goToForms()"
+    title="{{ 'Forms' | translate }}"
+    class="form btn"
+  >
     <img
       [src]="
         isDocMode
@@ -57,7 +86,11 @@
     />
   </button>
 
-  <button (click)="goToArray()" title="{{ 'Arrays' | translate }}" class="array btn">
+  <button
+    (click)="goToArray()"
+    title="{{ 'Arrays' | translate }}"
+    class="array btn"
+  >
     <img
       [src]="
         isArrayMode

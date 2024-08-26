@@ -465,3 +465,11 @@ body.dark-mode .profile2 {
   margin-top: 8%;
   color: #e9e9e9;
 }
+
+.langChoice{
+  background: #154d88;
+  border-top-left-radius: 0.5rem;
+  color: #e8eaf6;
+  font-size: 0.75rem;
+  text-align: center;
+}

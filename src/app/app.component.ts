@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   isFavMode: boolean = false;
   isDocMode: boolean = false;
   isArrayMode: boolean = false;
+  currentLanguage: string = '';
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
 
     if (isPlatformBrowser(this.platformId)) {
       const browserLang = translate.getBrowserLang();
-      translate.use(browserLang && browserLang.match(/en|tr/) ? browserLang : 'en');
+      
     }
 
     console.log(environment.production);
@@ -62,10 +63,12 @@ export class AppComponent implements OnInit {
     this.themeService.isDarkMode$.subscribe((isDark) => {
       this.isDarkMode = isDark;
     });
+    this.currentLanguage = this.translate.currentLang || 'en';
   }
   switchLanguage(language: string) {
     if (isPlatformBrowser(this.platformId)) {
       this.translate.use(language);
+      this.currentLanguage = language; // Geçerli dili güncelle
     }
   }
   homeTheme() {
