@@ -1,6 +1,7 @@
 {
   "name": "frontend-proje",
   "version": "0.0.0",
+  "homepage": "https://yyarenddurmaz.github.io/frontend_proje/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
