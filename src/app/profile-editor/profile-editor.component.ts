@@ -105,7 +105,7 @@ export class ProfileEditorComponent implements OnInit {
       console.log('Saving profile...');
       localStorage.setItem('profileData', JSON.stringify(userData));
 
-      this.notificationMessage2 = this.translate.instant('usersuccess');
+      this.notificationMessage2 = this.translate.instant('forms.SAVE_USER_SUCCESS');
       this.showNotification2 = true;
 
       setTimeout(() => (this.showNotification2 = false), 4000);
@@ -147,7 +147,7 @@ export class ProfileEditorComponent implements OnInit {
 
   clearData(): void {
     if (this.isBrowser) {
-      const confirmed = confirm(this.translate.instant('deleteusersure'));
+      const confirmed = confirm(this.translate.instant('forms.CONFIRM_DELETE_USER'));
       if (confirmed) {
         localStorage.clear();
         this.userData = {
@@ -157,7 +157,7 @@ export class ProfileEditorComponent implements OnInit {
           district: '',
         };
 
-        this.notificationMessage = this.translate.instant('USER_INFO_DELETED');
+        this.notificationMessage = this.translate.instant('forms.USER_INFO_DELETED');
         this.showNotification = true;
 
         setTimeout(() => (this.showNotification = false), 4000);

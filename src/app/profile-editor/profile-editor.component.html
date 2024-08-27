@@ -1,6 +1,6 @@
 <div class="container">
   <button type="button" class="cleardata btn btn-danger" (click)="clearData()">
-    {{ "Clear Data" | translate }}
+    {{ "forms.CLEAR_DATA" | translate }}
   </button>
   <div
     *ngIf="showNotification"
@@ -11,15 +11,15 @@
     {{ notificationMessage }}
   </div>
   <div class="container1 container">
-    <h2><b>{{ "user profile" | translate }}</b></h2>
+    <h2><b>{{ "forms.USER_PROFILE" | translate }}</b></h2>
     <hr class="cizgi" />
-    <p class="profile">{{ "first" | translate }}:</p>
+    <p class="profile">{{ "forms.FIRST_NAME" | translate }}:</p>
     <p class="profile2">{{ userData.firstName }}</p>
-    <p class="profile">{{ "last" | translate }}:</p>
+    <p class="profile">{{ "forms.LAST_NAME" | translate }}:</p>
     <p class="profile2">{{ userData.lastName }}</p>
-    <p class="profile">{{ "city" | translate }}:</p>
+    <p class="profile">{{ "forms.CITY" | translate }}:</p>
     <p class="profile2">{{ userData.city }}</p>
-    <p class="profile">{{ "district" | translate }}:</p>
+    <p class="profile">{{ "forms.DISTRICT" | translate }}:</p>
     <p class="profile2">{{ userData.district }}</p>
     <div
       class="nodef text-danger"
@@ -32,7 +32,7 @@
           !userData.district)
       "
     >
-      {{ "Nodef" | translate }}
+      {{ "favorites.NO_DATA_FOUND" | translate }}
     </div>
   </div>
 
@@ -47,38 +47,38 @@
 
   <div class="container1 container saveupdate" [formGroup]="profileForm">
     <h2>
-      <b>{{ "saveupdate" | translate }}</b>
+      <b>{{ "forms.SAVE_UPDATE" | translate }}</b>
     </h2>
     <hr class="cizgi" />
-    <label for="firstName">{{ "first" | translate }}:</label><br />
+    <label for="firstName">{{ "forms.FIRST_NAME" | translate }}:</label><br />
     <input
       id="firstName"
-      placeholder="{{'enterfirst'|translate}}"
+      placeholder="{{'forms.ENTER_FIRST_NAME'|translate}}"
       formControlName="firstName"
     />
     <br /><br />
 
-    <label for="lastName">{{ "last" | translate }}:</label><br />
+    <label for="lastName">{{ "forms.LAST_NAME" | translate }}:</label><br />
     <input
       id="lastName"
       type="text"
-      placeholder="{{'enterlast'|translate}}"
+      placeholder="{{'forms.ENTER_LAST_NAME'|translate}}"
       formControlName="lastName"
     />
     <br /><br />
 
-    <label for="city">{{ "city" | translate }}:</label><br />
+    <label for="city">{{ "forms.CITY" | translate }}:</label><br />
     <select formControlName="city" (change)="onCityChange()">
-      <option value="" disabled selected>{{'selectcity'|translate}}</option>
+      <option value="" disabled selected>{{'forms.SELECT_CITY'|translate}}</option>
       <option *ngFor="let city of cities" [value]="city.id">
         {{ city.name }}
       </option>
     </select>
 
     <br /><br />
-    <label for="district">{{ "district" | translate }}:</label><br />
+    <label for="district">{{ "forms.DISTRICT" | translate }}:</label><br />
     <select formControlName="district">
-      <option value="" disabled selected>{{'selectdistrict'|translate}}</option>
+      <option value="" disabled selected>{{'forms.SELECT_DISTRICT'|translate}}</option>
       <option *ngFor="let district of districts" [value]="district.id">
         {{ district.name }}
       </option>
@@ -92,32 +92,32 @@
       type="button"
       (click)="onSubmit()"
     >
-      {{ "saveupdate" | translate }}
+      {{ "forms.SAVE_UPDATE" | translate }}
     </button>
 
     <div *ngIf="profileForm.invalid" class="validation-errors">
       <hr class="cizgi" />
-      <h3>{{ "vali" | translate }}</h3>
+      <h3>{{ "forms.VALIDATION_ERRORS" | translate }}</h3>
       <ul>
         <li *ngIf="profileForm.controls['firstName'].errors?.['minlength']">
-          {{ "minlengthfirst" | translate }}
+          {{ "forms.MIN_LENGTH_FIRST_NAME" | translate }}
         </li>
         <li *ngIf="profileForm.controls['firstName'].errors?.['required']">
-          {{ "valifirst" | translate }}
+          {{ "forms.VALIDATION_ERRORS_FIRST_NAME" | translate }}
         </li>
 
         <li *ngIf="profileForm.controls['lastName'].errors?.['minlength']">
-          {{ "minlengthlast" | translate }}
+          {{ "forms.MIN_LENGTH_LAST_NAME" | translate }}
         </li>
         <li *ngIf="profileForm.controls['lastName'].errors?.['required']">
-          {{ "valilast" | translate }}
+          {{ "forms.VALIDATION_ERRORS_LAST_NAME" | translate }}
         </li>
 
         <li *ngIf="profileForm.controls['city'].errors?.['required']">
-          {{ "valicity" | translate }}
+          {{ "forms.VALIDATION_ERRORS_CITY" | translate }}
         </li>
         <li *ngIf="profileForm.controls['district'].errors?.['required']">
-          {{ "validistrict" | translate }}
+          {{ "forms.VALIDATION_ERRORS_DISTRICT" | translate }}
         </li>
       </ul>
     </div>

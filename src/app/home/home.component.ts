@@ -81,14 +81,14 @@ export class HomeComponent implements OnInit {
             this.definition = data?.[0] || null;
             if (!this.definition) {
               this.noDefinitionMessage =
-                this.translate.instant('NO_DEFINITIONS');
+                this.translate.instant('home.NO_DEFINITIONS');
             }
             this.isLoading = false;
           },
           (error) => {
             console.error('Error:', error);
             this.noDefinitionMessage = this.translate.instant(
-              'ERROR_FETCHING_DEFINITIONS'
+              'home.ERROR_FETCHING_DEFINITIONS'
             );
             this.definition = null;
             this.isLoading = false;
@@ -108,13 +108,13 @@ export class HomeComponent implements OnInit {
   toggleFavorite(): void {
     if (this.isFavorite(this.word)) {
       const confirmed = confirm(
-        this.translate.instant('CONFIRM_REMOVE', { word: this.word })
+        this.translate.instant('favorites.CONFIRM_REMOVE_FAVORITES', { word: this.word })
       );
       if (confirmed) {
         this.favoriteWords = this.favoriteWords.filter((w) => w !== this.word);
         localStorage.removeItem(this.word);
 
-        this.notificationMessage = this.translate.instant('removed', {
+        this.notificationMessage = this.translate.instant('favorites.REMOVED_FROM_FAVORITES', {
           word: this.word,
         });
         this.notificationType = 'removed';
@@ -133,7 +133,7 @@ export class HomeComponent implements OnInit {
       this.favoriteWords.push(this.word);
       localStorage.setItem(this.word, JSON.stringify(this.definition));
 
-      this.notificationMessage = this.translate.instant('added', {
+      this.notificationMessage = this.translate.instant('favorites.ADDED_TO_FAVORITES', {
         word: this.word,
       });
       this.notificationType = 'added';

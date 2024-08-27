@@ -36,8 +36,8 @@ export class LocalStorageComponent implements OnInit {
           return { word, meaning };
         });
       } else {
-        console.warn(this.translate.instant('Nodef'));
-        this.noDefinitionMessage = this.translate.instant('Nodef');
+        console.warn(this.translate.instant('favorites.NO_DATA_FOUND'));
+        this.noDefinitionMessage = this.translate.instant('favorites.NO_DATA_FOUND');
         this.storedData = [];
       }
     }
@@ -46,7 +46,7 @@ export class LocalStorageComponent implements OnInit {
   deleteWord(word: string): void {
     if (isPlatformBrowser(this.platformId)) {
       const confirmed = confirm(
-        this.translate.instant('CONFIRM_REMOVE', { word })
+        this.translate.instant('favorites.CONFIRM_REMOVE_FAVORITES', { word })
       );
       if (confirmed) {
         this.storedData = this.storedData.filter((item) => item.word !== word);
@@ -61,12 +61,12 @@ export class LocalStorageComponent implements OnInit {
 
   clearAll(): void {
     if (isPlatformBrowser(this.platformId)) {
-      const confirmed = confirm(this.translate.instant('allremovedsure'));
+      const confirmed = confirm(this.translate.instant('favorites.CONFIRM_REMOVE_ALL_FAVORITES'));
       if (confirmed) {
         localStorage.clear();
         this.storedData = [];
 
-        this.notificationMessage = this.translate.instant('allwordsremoved');
+        this.notificationMessage = this.translate.instant('favorites.ALL_WORDS_REMOVED');
         this.showNotification = true;
       } else {
         return;

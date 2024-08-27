@@ -4,23 +4,23 @@
   <div>
     <div class="langChoice">
       <div *ngIf="currentLanguage === 'en'">
-        {{ "English" | translate }}
+        {{ "side.ENGLISH_BUTTON" | translate }}
       </div>
       <div *ngIf="currentLanguage === 'tr'">
-        {{ "Turkish" | translate }}
+        {{ "side.TURKISH_BUTTON" | translate }}
       </div>
     </div>
 
     <button
       class="home btn"
-      title="{{ 'English' | translate }}"
+      title="{{ 'side.ENGLISH_BUTTON' | translate }}"
       (click)="switchLanguage('en')"
     >
       <img src="assets/photos/en.png" alt="english" />
     </button>
     <button
       class="home btn"
-      title="{{ 'Turkish' | translate }}"
+      title="{{ 'side.TURKISH_BUTTON' | translate }}"
       (click)="switchLanguage('tr')"
     >
       <img src="assets/photos/tr.png" alt="turkish" />
@@ -29,7 +29,7 @@
   <hr class="cizgi" />
   <button
     (click)="homeTheme()"
-    title="{{ 'Home' | translate }}"
+    title="{{ 'side.HOME_BUTTON' | translate }}"
     class="home btn"
   >
     <img
@@ -43,7 +43,7 @@
   </button>
   <button
     (click)="goToLocalStorage()"
-    title="{{ 'Fav' | translate }}"
+    title="{{ 'side.FAV_BUTTON' | translate }}"
     class="ffav btn"
   >
     <img
@@ -58,7 +58,7 @@
 
   <button
     (click)="toggleTheme()"
-    title="{{ 'Dark' | translate }}"
+    title="{{ 'side.DARK_MODE_BUTTON' | translate }}"
     class="dmod btn"
   >
     <img
@@ -73,7 +73,7 @@
 
   <button
     (click)="goToForms()"
-    title="{{ 'Forms' | translate }}"
+    title="{{ 'side.FORMS_BUTTON' | translate }}"
     class="form btn"
   >
     <img
@@ -88,7 +88,7 @@
 
   <button
     (click)="goToArray()"
-    title="{{ 'Arrays' | translate }}"
+    title="{{ 'side.ARRAYS_BUTTON' | translate }}"
     class="array btn"
   >
     <img

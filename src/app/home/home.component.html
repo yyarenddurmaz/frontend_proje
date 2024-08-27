@@ -4,7 +4,7 @@
       type="text"
       class="search-bar bg-white p-2 m-2"
       [(ngModel)]="tempWord"
-      placeholder="{{ 'Enter the word' | translate }}"
+      placeholder="{{ 'home.ENTER_THE_WORD' | translate }}"
     />
 
     <button
@@ -72,10 +72,10 @@
       <div *ngFor="let meaning of definition.meanings">
         <div *ngFor="let def of meaning.definitions">
           <p class="synant" *ngIf="def.synonyms.length">
-            <b>{{ "Synonyms" | translate }}: </b>{{ def.synonyms.join(", ") }}
+            <b>{{ "home.SYNONYMS" | translate }}: </b>{{ def.synonyms.join(", ") }}
           </p>
           <p class="synant" *ngIf="def.antonyms?.length">
-            <b>{{ "Antonyms" | translate }}: </b>{{ def.antonyms.join(", ") }}
+            <b>{{ "home.ANTONYMS" | translate }}: </b>{{ def.antonyms.join(", ") }}
           </p>
         </div>
       </div>
@@ -86,10 +86,10 @@
         <ol>
           <li class="def" *ngFor="let def of meaning.definitions">
             <p>
-              <b>{{ "Definiton" | translate }}: </b> {{ def.definition }}
+              <b>{{ "home.DEFINITION" | translate }}: </b> {{ def.definition }}
             </p>
             <p *ngIf="def.example">
-              <b>{{ "Example" | translate }}: </b> {{ def.example }}
+              <b>{{ "home.EXAMPLE" | translate }}: </b> {{ def.example }}
             </p>
           </li>
         </ol>
