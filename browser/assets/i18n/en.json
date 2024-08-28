@@ -1,0 +1,54 @@
+{
+  "side": {
+    "HOME_BUTTON": "Home",
+    "ENGLISH_BUTTON": "English",
+    "TURKISH_BUTTON": "Turkish",
+    "FAV_BUTTON": "Favorites",
+    "FORMS_BUTTON": "Forms",
+    "ARRAYS_BUTTON": "Arrays",
+    "DARK_MODE_BUTTON": "Dark Mode"
+  },
+  "home": {
+    "ENTER_THE_WORD": "Enter the word",
+    "SYNONYMS": "Synonyms",
+    "ANTONYMS": "Antonyms",
+    "DEFINITION": "Definiton",
+    "EXAMPLE": "Example",
+    "NO_DEFINITIONS": "No definitions found.",
+    "ERROR": "Error",
+    "ERROR_FETCHING_DEFINITIONS": "Error fetching definitons!"
+  },
+  "favorites": {
+    "FAVORITES": "Favorites",
+    "CLEAR_ALL": "Clear All",
+    "NO_DATA_FOUND": "No data found in Local Storage.",
+    "CONFIRM_REMOVE_FAVORITES": "Are you sure you want to remove \"{{word}}\" from your favorites?",
+    "ADDED_TO_FAVORITES": "<b>{{word}}</b> added to favorites.",
+    "REMOVED_FROM_FAVORITES": "<b>{{word}}</b> removed from favorites.",
+    "ALL_WORDS_REMOVED": "<b>All words</b> removed from favorites.",
+    "CONFIRM_REMOVE_ALL_FAVORITES": "Are you sure you want to remove all words from your favorites?"
+  },
+  "forms": {
+    "CLEAR_DATA": "Clear Data",
+    "USER_PROFILE": "User Profile",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "CITY": "City",
+    "DISTRICT": "District",
+    "SAVE_UPDATE": "Save & Update Profile",
+    "VALIDATION_ERRORS": "Validation errors",
+    "VALIDATION_ERRORS_FIRST_NAME": "You must enter the first name.",
+    "VALIDATION_ERRORS_LAST_NAME": "You must enter the last name.",
+    "VALIDATION_ERRORS_CITY": "You must select the city.",
+    "VALIDATION_ERRORS_DISTRICT": "You must select the district.",
+    "SAVE_USER_SUCCESS": "User information has been saved successfully.",
+    "CONFIRM_DELETE_USER": "Are you sure you want to delete user information?",
+    "USER_INFO_DELETED": "User information has been deleted.",
+    "SELECT_CITY": "Select a city",
+    "SELECT_DISTRICT": "Select a district",
+    "ENTER_FIRST_NAME": "Enter the first name",
+    "ENTER_LAST_NAME": "Enter the last name",
+    "MIN_LENGTH_FIRST_NAME": "The first name is <b>not long enough</b>.",
+    "MIN_LENGTH_LAST_NAME": "The last name is <b>not long enough</b>."
+  }
+}

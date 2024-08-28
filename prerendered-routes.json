@@ -1,0 +1,8 @@
+{
+  "routes": [
+    "/",
+    "/array",
+    "/forms",
+    "/local-storage"
+  ]
+}
