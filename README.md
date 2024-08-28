@@ -11,8 +11,6 @@ This project is a website built using the Angular framework, designed for develo
 - [Running the Project](#running-the-project)
 - [Testing](#testing)
 - [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
