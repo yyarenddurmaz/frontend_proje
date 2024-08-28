@@ -60,4 +60,3 @@ The application also integrates with the Turkey Province-District API (`https://
 
 - Retrieve and display a list of provinces and districts in Turkey.
 - Populate form fields with city and district data based on user selection.
-- Provide detailed information about selected provinces and districts.
