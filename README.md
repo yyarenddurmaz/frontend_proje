@@ -32,9 +32,7 @@ This project is a website built using the Angular framework, designed for develo
 - **Angular Router:** A module for managing navigation and routing in the application.
 - **i18n:** Angular's integrated module for internationalization.
 
-## Installation
-
-### Prerequisites
+## Installation Requirements
 
 - Node.js (v14.x or higher)
 - Angular CLI (v15.x or higher)
