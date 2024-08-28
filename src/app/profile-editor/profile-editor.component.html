@@ -12,15 +12,15 @@
   </div>
   <div class="container1 container">
     <h2><b>{{ "forms.USER_PROFILE" | translate }}</b></h2>
-    <hr class="cizgi" />
-    <p class="profile">{{ "forms.FIRST_NAME" | translate }}:</p>
-    <p class="profile2">{{ userData.firstName }}</p>
-    <p class="profile">{{ "forms.LAST_NAME" | translate }}:</p>
-    <p class="profile2">{{ userData.lastName }}</p>
-    <p class="profile">{{ "forms.CITY" | translate }}:</p>
-    <p class="profile2">{{ userData.city }}</p>
-    <p class="profile">{{ "forms.DISTRICT" | translate }}:</p>
-    <p class="profile2">{{ userData.district }}</p>
+    <hr class="line" />
+    <p class="staticprofile">{{ "forms.FIRST_NAME" | translate }}:</p>
+    <p class="formprofile">{{ userData.firstName }}</p>
+    <p class="staticprofile">{{ "forms.LAST_NAME" | translate }}:</p>
+    <p class="formprofile">{{ userData.lastName }}</p>
+    <p class="staticprofile">{{ "forms.CITY" | translate }}:</p>
+    <p class="formprofile">{{ userData.city }}</p>
+    <p class="staticprofile">{{ "forms.DISTRICT" | translate }}:</p>
+    <p class="formprofile">{{ userData.district }}</p>
     <div
       class="nodef text-danger"
       *ngIf="
@@ -49,7 +49,7 @@
     <h2>
       <b>{{ "forms.SAVE_UPDATE" | translate }}</b>
     </h2>
-    <hr class="cizgi" />
+    <hr class="line" />
     <label for="firstName">{{ "forms.FIRST_NAME" | translate }}:</label><br />
     <input
       id="firstName"
@@ -96,7 +96,7 @@
     </button>
 
     <div *ngIf="profileForm.invalid" class="validation-errors">
-      <hr class="cizgi" />
+      <hr class="line" />
       <h3>{{ "forms.VALIDATION_ERRORS" | translate }}</h3>
       <ul>
         <li *ngIf="profileForm.controls['firstName'].errors?.['minlength']">

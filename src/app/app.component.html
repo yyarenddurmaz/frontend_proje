@@ -1,6 +1,6 @@
 <router-outlet></router-outlet>
 
-<div class="kenar">
+<div class="side">
   <div>
     <div class="langChoice">
       <div *ngIf="currentLanguage === 'en'">
@@ -12,25 +12,25 @@
     </div>
 
     <button
-      class="home btn"
+      class="sidebtn btn"
       title="{{ 'side.ENGLISH_BUTTON' | translate }}"
       (click)="switchLanguage('en')"
     >
       <img src="assets/photos/en.png" alt="english" />
     </button>
     <button
-      class="home btn"
+      class="sidebtn btn"
       title="{{ 'side.TURKISH_BUTTON' | translate }}"
       (click)="switchLanguage('tr')"
     >
       <img src="assets/photos/tr.png" alt="turkish" />
     </button>
   </div>
-  <hr class="cizgi" />
+  <hr class="line" />
   <button
     (click)="homeTheme()"
     title="{{ 'side.HOME_BUTTON' | translate }}"
-    class="home btn"
+    class="sidebtn btn"
   >
     <img
       [src]="
@@ -44,7 +44,7 @@
   <button
     (click)="goToLocalStorage()"
     title="{{ 'side.FAV_BUTTON' | translate }}"
-    class="ffav btn"
+    class="sidebtn btn"
   >
     <img
       [src]="
@@ -59,7 +59,7 @@
   <button
     (click)="toggleTheme()"
     title="{{ 'side.DARK_MODE_BUTTON' | translate }}"
-    class="dmod btn"
+    class="sidebtn btn"
   >
     <img
       [src]="
@@ -74,7 +74,7 @@
   <button
     (click)="goToForms()"
     title="{{ 'side.FORMS_BUTTON' | translate }}"
-    class="form btn"
+    class="sidebtn btn"
   >
     <img
       [src]="
@@ -89,7 +89,7 @@
   <button
     (click)="goToArray()"
     title="{{ 'side.ARRAYS_BUTTON' | translate }}"
-    class="array btn"
+    class="sidebtn btn"
   >
     <img
       [src]="

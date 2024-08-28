@@ -10,15 +10,15 @@
   <br /><br />
 
   <table
-    class="abc table table-ml table-bordered"
+    class="favtable table table-ml table-bordered"
     *ngIf="storedData && storedData.length > 0"
   >
     <tbody>
       <tr *ngFor="let item of storedData; let i = index" class="data-item">
         <th class="no" scope="row">{{ i + 1 }}</th>
-        <td class="wword">{{ item.word }}</td>
+        <td class="favword">{{ item.word }}</td>
         <td class="delete">
-          <button class="del btn" (click)="deleteWord(item.word)">
+          <button class="favdel btn" (click)="deleteWord(item.word)">
             <img [src]="'assets/photos/delete_icon.png'" alt="Delete" />
           </button>
         </td>
