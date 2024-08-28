@@ -1,3 +1,7 @@
+Certainly! Here's the updated README.md file that includes details about the dictionary API and the Turkey province-district API:
+
+---
+
 # Angular Website Project
 
 This project is a website built using the Angular framework, designed for developing modern web applications. The project offers a user-friendly interface, combined with a performant and scalable structure.
@@ -7,10 +11,9 @@ This project is a website built using the Angular framework, designed for develo
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
-- [Project Structure](#project-structure)
-- [Running the Project](#running-the-project)
-- [Testing](#testing)
-- [Deployment](#deployment)
+- [APIs Used](#apis-used)
+  - [Dictionary API](#dictionary-api)
+  - [Turkey Province-District API](#turkey-province-district-api)
 
 ## Features
 
@@ -41,66 +44,24 @@ This project is a website built using the Angular framework, designed for develo
 - Angular CLI (v15.x or higher)
 - NPM (v6.x or higher)
 
-### Steps
+## APIs Used
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/username/project-name.git
-   cd project-name
-   ```
+### Dictionary API
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+The project integrates with a Dictionary API (`https://dictionaryapi.dev/`) to provide users with features such as word definitions, synonyms, antonyms, and pronunciation. The API allows users to search for words, and the application displays the relevant details dynamically. Additionally, users can save words to their favorites and switch between light and dark themes while viewing the word details.
 
-3. **Set up environment variables:**
-   - Fill in the `src/environments/environment.ts` file with the necessary API keys and URLs.
+**Features:**
 
-## Project Structure
+- Fetch word definitions, synonyms, antonyms, and pronunciations.
+- Display word details dynamically based on user search.
+- Integration with user preferences for light/dark mode.
 
-The project is structured following Angular's recommended guidelines:
+### Turkey Province-District API
 
-```bash
-src/
-├── app/
-│   ├── components/        # Application components
-│   ├── services/          # Application services
-│   ├── models/            # Data models
-│   ├── pages/             # Main pages
-│   ├── app-routing.module.ts  # Routing module
-│   └── app.module.ts      # Main module
-├── assets/                # Static assets (images, icons)
-├── environments/          # Environment variables
-└── index.html             # Entry point
-```
+The application also integrates with the Turkey Province-District API (`https://turkiyeapi.dev/api/v1/`). This API provides detailed data about Turkish provinces and their districts, including population, area, altitude, area codes, coordinates, region, and more. The application uses this data to populate forms, allowing users to select their city and district dynamically.
 
-## Running the Project
+**Features:**
 
-To start the development server:
-
-```bash
-ng serve
-```
-
-This command will run the project in development mode and open it in your browser at [http://localhost:4200](http://localhost:4200). The application will automatically reload if you make changes to the code.
-
-## Testing
-
-To run unit tests:
-
-```bash
-ng test
-```
-
-This command will run unit tests using Jasmine and Karma.
-
-## Deployment
-
-To build the application for production:
-
-```bash
-ng build --prod
-```
-
-This command will create an optimized build in the `dist/` directory, which is ready to be deployed to a server.
+- Retrieve and display a list of provinces and districts in Turkey.
+- Populate form fields with city and district data based on user selection.
+- Provide detailed information about selected provinces and districts.
