@@ -1,7 +1,3 @@
-Certainly! Here's the updated README.md file that includes details about the dictionary API and the Turkey province-district API:
-
----
-
 # Angular Website Project
 
 This project is a website built using the Angular framework, designed for developing modern web applications. The project offers a user-friendly interface, combined with a performant and scalable structure.
