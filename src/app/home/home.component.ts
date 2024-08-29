@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
             this.isLoading = false;
           },
           (error) => {
-            console.error('Error:', error);
+            console.error(this.translate.instant('home.ERROR'), error);;
             this.noDefinitionMessage = this.translate.instant(
               'home.ERROR_FETCHING_DEFINITIONS'
             );
