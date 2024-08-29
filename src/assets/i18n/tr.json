@@ -16,7 +16,7 @@
     "EXAMPLE": "Örnek",
     "NO_DEFINITIONS": "Tanım bulunamadı.",
     "ERROR": "Hata",
-    "ERROR_FETCHING_DEFINITIONS": "Tanım alınırkan hata!"
+    "ERROR_FETCHING_DEFINITIONS": "Tanım alınırken hata!"
   },
   "favorites": {
     "FAVORITES": "Favoriler",
