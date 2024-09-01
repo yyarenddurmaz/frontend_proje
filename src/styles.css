@@ -242,6 +242,12 @@ body.dark-mode .part-of-speech {
   body.dark-mode {
     font-size: 90%;
   }
+  #lastName, #firstName, #saveupdate{
+    font-size: 90%;
+  }
+  body.dark-mode #lastName, #firstName, #saveupdate{
+    font-size: 90%;
+  }
 
   .side {
     background-color: #87cefa;
@@ -283,6 +289,12 @@ body.dark-mode .part-of-speech {
     font-size: 60%;
   }
   body.dark-mode {
+    font-size: 60%;
+  }
+  #lastName, #firstName, #saveupdate{
+    font-size: 60%;
+  }
+  body.dark-mode #lastName, #firstName, #saveupdate{
     font-size: 60%;
   }
 
