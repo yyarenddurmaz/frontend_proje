@@ -237,7 +237,10 @@ body.dark-mode .part-of-speech {
 
 @media screen and (max-width: 600px) {
   body {
-    font-size: 85%;
+    font-size: 90%;
+  }
+  body.dark-mode {
+    font-size: 90%;
   }
 
   .side {
@@ -277,6 +280,9 @@ body.dark-mode .part-of-speech {
 
 @media screen and (max-width: 375px) {
   body {
+    font-size: 60%;
+  }
+  body.dark-mode {
     font-size: 60%;
   }
 
