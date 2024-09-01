@@ -242,10 +242,10 @@ body.dark-mode .part-of-speech {
   body.dark-mode {
     font-size: 90%;
   }
-  #lastName, #firstName, #saveupdate{
+  #lastName, #firstName, #saveupdate, #city, #district{
     font-size: 90%;
   }
-  body.dark-mode #lastName, #firstName, #saveupdate{
+  body.dark-mode #lastName, #firstName, #saveupdate, #city, #district{
     font-size: 90%;
   }
 
@@ -291,10 +291,10 @@ body.dark-mode .part-of-speech {
   body.dark-mode {
     font-size: 60%;
   }
-  #lastName, #firstName, #saveupdate{
+  #lastName, #firstName, #saveupdate, #city, #district{
     font-size: 60%;
   }
-  body.dark-mode #lastName, #firstName, #saveupdate{
+  body.dark-mode #lastName, #firstName, #saveupdate, #city, #district{
     font-size: 60%;
   }
 

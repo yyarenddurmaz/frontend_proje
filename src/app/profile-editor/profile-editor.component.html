@@ -68,7 +68,7 @@
     <br /><br />
 
     <label for="city">{{ "forms.CITY" | translate }}:</label><br />
-    <select formControlName="city" (change)="onCityChange()">
+    <select formControlName="city" (change)="onCityChange()" id="city">
       <option value="" disabled selected>{{'forms.SELECT_CITY'|translate}}</option>
       <option *ngFor="let city of cities" [value]="city.id">
         {{ city.name }}
@@ -77,7 +77,7 @@
 
     <br /><br />
     <label for="district">{{ "forms.DISTRICT" | translate }}:</label><br />
-    <select formControlName="district">
+    <select formControlName="district" id="district">
       <option value="" disabled selected>{{'forms.SELECT_DISTRICT'|translate}}</option>
       <option *ngFor="let district of districts" [value]="district.id">
         {{ district.name }}
