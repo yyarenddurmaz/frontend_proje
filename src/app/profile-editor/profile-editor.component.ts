@@ -140,7 +140,7 @@ export class ProfileEditorComponent implements OnInit {
           }
         });
       } else {
-        console.warn('No data found in Local Storage.');
+        console.warn(this.translate.instant('favorites.NO_DATA_FOUND'));
       }
     }
   }
