@@ -1,4 +1,5 @@
 {
     "window.zoomLevel": -1,
-    "window.zoomPerWindow": true
+    "window.zoomPerWindow": true,
+    "editor.wordWrap": "on"
 }
